@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- Clean Reset (recommended) --- */
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+/* Prevent long horizontal overflow */
+body {
+  overflow-x: hidden;
+}
+
+/* Remove tap highlight on mobile for a cleaner experience */
+body, button, a, input, textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Optional: Inherit box-sizing for all children */
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* Remove default link underline */
+a {
+  text-decoration: none;
+}
+
+/* Use Tailwind classes for all layout, color, background, and typography inside your components! */
