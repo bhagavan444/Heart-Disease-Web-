@@ -116,3 +116,17 @@ B.Tech – Artificial Intelligence & Data Science
 GitHub: https://github.com/bhagavan444
 
 LinkedIn: https://linkedin.com/in/bhagavan
+
+<img width="1919" height="1093" alt="image" src="https://github.com/user-attachments/assets/ce277509-3b5c-4fe6-9158-096c33252b1f" />
+<img width="1919" height="1075" alt="image" src="https://github.com/user-attachments/assets/088d1238-eea4-4740-a1d3-8de2611e7cd4" />
+<img width="1919" height="1082" alt="image" src="https://github.com/user-attachments/assets/d77aea44-dd90-4345-a014-764f0e19c3ac" />
+<img width="1919" height="1103" alt="image" src="https://github.com/user-attachments/assets/8f88cfdd-fdf9-44d0-a9df-c4017a7956ac" />
+<img width="1919" height="986" alt="image" src="https://github.com/user-attachments/assets/2ccfb18b-f61a-48ad-bf55-e2197cb0227a" />
+
+
+
+
+
+
+
+
