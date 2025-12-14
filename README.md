@@ -1,12 +1,118 @@
-# React + Vite
+# Heart Disease Prediction Web Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+The Heart Disease Prediction Web Application is a machine learning–based system designed to predict the likelihood of heart disease in a patient based on clinical parameters. The application provides fast, accurate predictions through a simple and user-friendly web interface, enabling early risk assessment and decision support.
 
-Currently, two official plugins are available:
+## Problem Statement
+Heart disease is one of the leading causes of mortality worldwide. Early detection plays a crucial role in prevention and treatment. Traditional diagnosis methods can be time-consuming and require expert interpretation. This project aims to assist healthcare decision-making by using machine learning models to predict heart disease risk efficiently.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Key Features
+- Heart disease risk prediction using machine learning
+- Input of patient health parameters through a web form
+- Real-time prediction results
+- REST API-based backend
+- Clean and responsive user interface
+- Fast and accurate inference
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Frontend
+- React.js
+- HTML5
+- CSS3
+- JavaScript
+
+### Backend
+- Python
+- Flask
+- REST APIs
+
+### Machine Learning
+- Scikit-learn
+- Logistic Regression
+- Decision Tree Classifier
+- Pandas
+- NumPy
+
+### Tools & Platforms
+- Git & GitHub
+- VS Code
+- Postman
+
+## System Architecture
+1. User enters medical details such as age, blood pressure, cholesterol, and heart rate.
+2. Frontend sends the input data to the Flask backend API.
+3. Backend preprocesses the input data.
+4. Machine learning model predicts the presence or absence of heart disease.
+5. Prediction result is returned and displayed on the web interface.
+
+## Machine Learning Workflow
+- Dataset collection and analysis
+- Data preprocessing and feature selection
+- Model training and evaluation
+- Model deployment using Flask
+- Real-time inference via REST API
+
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/heart-disease-prediction.git
+Navigate to the project directory:
+
+cd heart-disease-prediction
+
+
+Install backend dependencies:
+
+pip install -r requirements.txt
+
+
+Install frontend dependencies:
+
+npm install
+
+Run
+
+Start the backend server:
+
+python app.py
+
+
+Start the frontend application:
+
+npm start
+
+
+Open the application in your browser using the local URL provided.
+
+Future Enhancements
+
+Use of advanced models such as Random Forest and XGBoost
+
+Integration of deep learning models
+
+Visualization of health risk factors
+
+User authentication and history tracking
+
+Deployment on cloud platforms
+
+Learning Outcomes
+
+Gained hands-on experience in machine learning model development
+
+Learned data preprocessing and feature engineering
+
+Built REST APIs using Flask
+
+Integrated ML models with a React frontend
+
+Understood end-to-end deployment of ML-based web applications
+
+Author
+
+Siva Satya Sai Bhagavan Gopalajosyula
+B.Tech – Artificial Intelligence & Data Science
+GitHub: https://github.com/bhagavan444
+
+LinkedIn: https://linkedin.com/in/bhagavan
