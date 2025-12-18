@@ -1,193 +1,182 @@
-/* ============================= NAVBAR.CSS – FINAL 2026 LUXURY EDITION ============================= */
-/* Exactly matches your beautiful screenshot — glass pill, gradient logo, teal login button */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-.nav-main {
-  position: fixed;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 2rem);
-  max-width: 1400px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
-  border-radius: 60px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.12),
-    0 8px 25px rgba(99, 102, 241, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+/* =========================
+   BASE
+========================= */
+.navbar {
+  position: sticky;
+  top: 0;
   z-index: 1000;
-  padding: 1rem 2.5rem;
-  font-family: 'Inter', sans-serif;
-  transition: all 0.4s ease;
-}
-
-.nav-container {
+  background:white;
+  border-bottom: 1px solid #e5e7eb;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
+  padding: 16px 36px; /* more breathing room */
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Logo */
-.nav-logo-text {
-  font-size: 2.1rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #6366f1, #a78bfa, #f472b6);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Dark mode */
+body.dark .navbar {
+  background: #020617;
+  border-color: #1e293b;
+}
+
+/* =========================
+   LOGO
+========================= */
+.navbar-logo a {
+  font-size: 1.25rem; /* slightly bigger */
+  font-weight: 700;
+  color: #111827;
   text-decoration: none;
-  transition: transform 0.3s ease;
-}
-.nav-logo-text:hover {
-  transform: scale(1.05);
+  letter-spacing: 0.3px;
 }
 
-/* Links */
-.nav-links {
+body.dark .navbar-logo a {
+  color: #e5e7eb;
+}
+
+/* =========================
+   LINKS
+========================= */
+.navbar-links {
   display: flex;
-  gap: 3rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
   align-items: center;
+  gap: 30px; /* increased spacing */
 }
 
-.nav-link {
-  color: #555;
+.navbar-links a {
+  font-size: 1rem; /* increased size */
+  font-weight: 500;
+  color: #374151;
   text-decoration: none;
+  padding: 8px 4px;
+  position: relative;
+  transition: color 0.25s ease;
+}
+
+body.dark .navbar-links a {
+  color: #9ca3af;
+}
+
+/* Hover */
+.navbar-links a:hover {
+  color: #2563eb;
+}
+
+/* Active link */
+.navbar-links a.active {
+  color: #2563eb;
   font-weight: 600;
-  font-size: 1.1rem;
-  padding: 0.7rem 1.4rem;
-  border-radius: 50px;
+}
+
+/* Active underline – subtle & clean */
+.navbar-links a.active::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #2563eb;
+  border-radius: 2px;
+}
+
+/* =========================
+   ACTION BUTTON
+========================= */
+.navbar-btn {
+  margin-left: 10px;
+  padding: 10px 20px; /* more clickable */
+  border-radius: 10px;
+  border: 1px solid #2563eb;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.navbar-btn:hover {
+  background: #1e40af;
+  border-color: #1e40af;
+}
+
+/* Dark mode button */
+body.dark .navbar-btn {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+/* =========================
+   HAMBURGER
+========================= */
+.navbar-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.navbar-hamburger span {
+  width: 24px;
+  height: 2px;
+  background: #111827;
   transition: all 0.3s ease;
 }
 
-.nav-link:hover {
-  background: rgba(99, 102, 241, 0.12);
-  color: #6366f1;
+body.dark .navbar-hamburger span {
+  background: #e5e7eb;
 }
 
-/* Predict Link (clickable button style) */
-.predict-link {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font: inherit;
-}
-
-/* Login Button — Your exact teal-green gradient */
-.login-btn {
-  background: linear-gradient(135deg, #10b981, #34d399) !important;
-  color: white !important;
-  padding: 0.9rem 2.4rem !important;
-  border-radius: 50px !important;
-  font-weight: 700 !important;
-  font-size: 1.05rem !important;
-  box-shadow: 
-    0 10px 30px rgba(16, 185, 129, 0.4),
-    0 4px 15px rgba(16, 185, 129, 0.3);
-  transition: all 0.4s ease;
-}
-.login-btn:hover {
-  transform: translateY(-6px) !important;
-  box-shadow: 
-    0 20px 50px rgba(16, 185, 129, 0.5),
-    0 8px 25px rgba(16, 185, 129, 0.4);
-}
-
-/* Logout Button */
-.logout-btn {
-  background: #ef4444 !important;
-  color: white !important;
-  padding: 0.9rem 2.4rem !important;
-  border-radius: 50px !important;
-  font-weight: 700 !important;
-  font-size: 1.05rem !important;
-  box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
-  transition: all 0.4s ease;
-}
-.logout-btn:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 50px rgba(239, 68, 68, 0.5);
-}
-
-/* Hamburger */
-.nav-hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 6px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.8rem;
-}
-
-.hamburger-line {
-  width: 30px;
-  height: 3px;
-  background: #333;
-  border-radius: 3px;
-  transition: all 0.4s ease;
-}
-
-.nav-hamburger.active .hamburger-line:nth-child(1) {
-  transform: rotate(45deg) translate(8px, 8px);
-}
-.nav-hamburger.active .hamburger-line:nth-child(2) {
-  opacity: 0;
-}
-.nav-hamburger.active .hamburger-line:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -7px);
-}
-
-/* Mobile Menu */
-@media (max-width: 992px) {
-  .nav-main {
-    top: 0.8rem;
-    width: calc(100% - 1.6rem);
-    padding: 1rem 2rem;
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 14px 22px;
   }
 
-  .nav-links {
+  .navbar-hamburger {
+    display: flex;
+  }
+
+  .navbar-links {
     position: absolute;
-    top: 100%;
-    left: 0;
+    top: 68px;
     right: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    flex-direction: column;
-    border-radius: 32px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.6s ease, padding 0.6s ease;
-    margin-top: 1rem;
-    padding: 0 2rem;
-  }
-
-  .nav-links.open {
-    max-height: 600px;
-    padding: 2rem;
-  }
-
-  .nav-hamburger { display: flex; }
-
-  .nav-link,
-  .login-btn,
-  .logout-btn,
-  .predict-link {
     width: 100%;
-    text-align: center;
-    padding: 1.3rem !important;
-    margin: 0.5rem 0;
+    background: #ffffff;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 24px 28px;
+    border-bottom: 1px solid #e5e7eb;
+    display: none;
+  }
+
+  body.dark .navbar-links {
+    background: #020617;
+    border-color: #1e293b;
+  }
+
+  .navbar-links.active {
+    display: flex;
+  }
+
+  .navbar-links a {
+    font-size: 1.05rem;
+  }
+
+  .navbar-links a.active::after {
+    display: none;
+  }
+
+  .navbar-btn {
+    margin-top: 8px;
   }
 }
-
-@media (max-width: 480px) {
-  .nav-logo-text { font-size: 1.7rem; }
-}
+/* =========================
+   RESPONSIVE ADJUSTMENTS

@@ -1,321 +1,277 @@
-/* Contact.css - Bold Neumorphic Premium Contact Page 2026 */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
+/* ================= THEME ================= */
 :root {
-  --bg-main: #e0e5ec;
-  --bg-card: #e0e5ec;
-  --text-primary: #2d3748;
-  --text-secondary: #4a5568;
-  --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --accent-purple: #667eea;
-  --accent-blue: #4299e1;
-  --shadow-neumo: 12px 12px 24px #bec8d9, -12px -12px 24px #ffffff;
-  --shadow-neumo-inset: inset 8px 8px 16px #bec8d9, inset -8px -8px 16px #ffffff;
-  --shadow-hover: 20px 20px 40px #bec8d9, -20px -20px 40px #ffffff;
-  --radius-xl: 32px;
-  --radius-lg: 24px;
-  --radius-md: 18px;
-  --transition: all 0.4s ease;
+  --primary: #2563eb;
+  --accent: #22c55e;
+  --bg: #f9fafb;
+  --white: #ffffff;
+  --text-dark: #0f172a;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-main: #2d3748;
-    --bg-card: #2d3748;
-    --text-primary: #e2e8f0;
-    --text-secondary: #a0aec0;
-    --shadow-neumo: 12px 12px 24px #1a202c, -12px -12px 24px #4a5568;
-    --shadow-neumo-inset: inset 8px 8px 16px #1a202c, inset -8px -8px 16px #4a5568;
-    --shadow-hover: 20px 20px 40px #1a202c, -20px -20px 40px #4a5568;
-  }
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", "Segoe UI", sans-serif;
 }
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg-main);
-  color: var(--text-primary);
-  line-height: 1.7;
-  padding: 2.5rem;
+  background: var(--bg);
+  color: var(--text-dark);
 }
 
+/* ================= MAIN ================= */
 .contact-main {
   max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  gap: 3rem;
+  margin: auto;
+  padding: 60px 20px 100px;
 }
 
-/* Main Contact Card */
+/* ================= HEADER ================= */
 .contact-card {
-  background: var(--bg-card);
-  border-radius: var(--radius-xl);
-  padding: 3.5rem;
   text-align: center;
-  box-shadow: var(--shadow-neumo);
-  transition: var(--transition);
-}
-
-.contact-card:hover {
-  box-shadow: var(--shadow-hover);
+  margin-bottom: 70px;
 }
 
 .contact-title {
   font-size: 3rem;
-  font-weight: 800;
-  margin-bottom: 1.5rem;
+  font-weight: 700;
 }
 
 .contact-emoji {
-  font-size: 3.5rem;
-  display: block;
-  margin-bottom: 0.5rem;
+  margin-right: 6px;
 }
 
 .contact-intro {
-  font-size: 1.25rem;
-  margin-bottom: 2.5rem;
-  color: var(--text-secondary);
-}
-
-.contact-highlight {
-  display: block;
-  font-size: 1.4rem;
-  color: var(--accent-purple);
-  font-weight: 600;
-  margin-top: 1.5rem;
-}
-
-/* Contact Methods */
-.contact-methods {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin: 3rem 0;
-  max-width: 500px;
+  margin-top: 20px;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
 }
 
+.contact-highlight {
+  margin-top: 15px;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* ================= QUICK CONTACT ================= */
+.contact-methods {
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
 .contact-method {
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 14px 22px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--text-dark);
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  padding: 1.5rem;
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
-  text-decoration: none;
-  color: var(--text-primary);
-  font-size: 1.3rem;
-  font-weight: 600;
-  box-shadow: var(--shadow-neumo);
-  transition: var(--transition);
+  gap: 10px;
+  font-weight: 500;
+  transition: 0.25s;
 }
 
 .contact-method:hover {
-  box-shadow: var(--shadow-neumo-inset);
-  transform: translateY(4px);
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .contact-icon {
-  font-size: 2.2rem;
+  font-size: 1.2rem;
 }
 
-.contact-details {
-  color: var(--accent-blue);
-}
-
-/* Social Buttons */
+/* ================= SOCIAL ================= */
 .contact-socials {
+  margin-top: 30px;
   display: flex;
   justify-content: center;
-  gap: 2rem;
-  margin: 3rem 0;
+  gap: 18px;
 }
 
 .contact-social-btn {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1.2rem 2.5rem;
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  background: var(--white);
+  border: 1px solid var(--border);
   text-decoration: none;
-  color: var(--text-primary);
-  font-weight: 700;
-  box-shadow: var(--shadow-neumo);
-  transition: var(--transition);
+  color: var(--text-dark);
+  font-weight: 500;
+  transition: 0.25s;
 }
 
 .contact-social-btn img {
-  width: 32px;
-  height: 32px;
+  width: 20px;
 }
 
 .contact-social-btn:hover {
-  box-shadow: var(--shadow-neumo-inset);
-  transform: translateY(4px);
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
+/* ================= PRIMARY CTA ================= */
 .contact-primary-btn {
   display: inline-block;
-  padding: 1.4rem 4rem;
-  background: var(--accent-gradient);
+  margin-top: 35px;
+  padding: 14px 36px;
+  background: var(--primary);
   color: white;
-  border-radius: var(--radius-lg);
+  border-radius: 30px;
   text-decoration: none;
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-top: 2rem;
-  box-shadow: var(--shadow-neumo);
-  transition: var(--transition);
+  font-weight: 600;
+  transition: 0.25s;
 }
 
 .contact-primary-btn:hover {
-  box-shadow: var(--shadow-neumo-inset);
+  background: #1d4ed8;
 }
 
-/* Form Card */
+/* ================= FORM ================= */
 .contact-form-card {
-  background: var(--bg-card);
-  border-radius: var(--radius-xl);
-  padding: 3rem;
-  box-shadow: var(--shadow-neumo);
-  transition: var(--transition);
-}
-
-.contact-form-card:hover {
-  box-shadow: var(--shadow-hover);
+  margin-top: 90px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 50px;
 }
 
 .contact-section-title {
   font-size: 2.2rem;
-  font-weight: 800;
   text-align: center;
-  margin-bottom: 1.5rem;
-  color: var(--accent-purple);
 }
 
 .contact-form-desc {
   text-align: center;
-  font-size: 1.15rem;
-  color: var(--text-secondary);
-  margin-bottom: 2.5rem;
+  margin: 12px 0 40px;
+  color: var(--text-muted);
 }
 
 .contact-form {
+  max-width: 650px;
+  margin: auto;
   display: grid;
-  gap: 1.5rem;
-  max-width: 600px;
-  margin: 0 auto;
+  gap: 16px;
 }
 
 .contact-input,
 .contact-textarea {
-  padding: 1.2rem 1.5rem;
-  border-radius: var(--radius-lg);
-  border: none;
-  background: var(--bg-card);
-  font-size: 1.1rem;
-  box-shadow: var(--shadow-neumo-inset);
-  transition: var(--transition);
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-size: 1rem;
 }
 
 .contact-input:focus,
 .contact-textarea:focus {
   outline: none;
-  box-shadow: var(--shadow-neumo-inset), 0 0 0 4px rgba(102, 126, 234, 0.3);
+  border-color: var(--primary);
 }
 
 .contact-submit-btn {
-  padding: 1.3rem;
-  background: var(--accent-gradient);
-  color: white;
+  margin-top: 10px;
+  padding: 14px;
+  background: var(--primary);
   border: none;
-  border-radius: var(--radius-lg);
-  font-size: 1.2rem;
-  font-weight: 700;
+  border-radius: 30px;
+  color: white;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: var(--shadow-neumo);
-  transition: var(--transition);
 }
 
-.contact-submit-btn:hover {
-  box-shadow: var(--shadow-neumo-inset);
-}
-
-/* Other Cards */
-.contact-collab-card,
-.contact-faq-card,
-.contact-hours-card,
-.contact-location-card {
-  background: var(--bg-card);
-  border-radius: var(--radius-xl);
-  padding: 3rem;
-  box-shadow: var(--shadow-neumo);
-  transition: var(--transition);
-}
-
-.contact-collab-card:hover,
-.contact-faq-card:hover,
-.contact-hours-card:hover,
-.contact-location-card:hover {
-  box-shadow: var(--shadow-hover);
+/* ================= COLLAB ================= */
+.contact-collab-card {
+  margin-top: 90px;
+  text-align: center;
 }
 
 .contact-collab-text {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  text-align: center;
+  margin: 14px auto 30px;
+  max-width: 800px;
+  color: var(--text-muted);
 }
 
 .collab-list {
-  padding-left: 2rem;
-  font-size: 1.2rem;
-  margin: 2rem 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
 }
 
 .collab-list li {
-  margin-bottom: 1rem;
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 0.95rem;
 }
 
-.contact-collab-bottom {
-  text-align: center;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--accent-purple);
+/* ================= FAQ ================= */
+.contact-faq-card {
+  margin-top: 90px;
 }
 
 .faq-item {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-neumo-inset);
+  max-width: 800px;
+  margin: 18px auto;
 }
 
 .faq-item strong {
-  display: block;
-  margin-bottom: 0.75rem;
-  color: var(--accent-purple);
+  color: var(--primary);
 }
 
-.contact-hours-text {
+.faq-item p {
+  margin-top: 6px;
+  color: var(--text-muted);
+}
+
+/* ================= AVAILABILITY ================= */
+.contact-hours-card,
+.contact-location-card {
+  margin-top: 80px;
   text-align: center;
-  font-size: 1.3rem;
+  color: var(--text-muted);
 }
 
-/* Footer */
+/* ================= FOOTER ================= */
 .contact-footer-note {
+  margin-top: 100px;
   text-align: center;
-  padding: 3rem;
-  color: var(--text-secondary);
-  font-size: 1.1rem;
-  background: var(--bg-card);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-neumo);
-  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .contact-title {
+    font-size: 2.4rem;
+  }
+
+  .contact-form-card {
+    padding: 35px;
+  }
+}
+@media (max-width: 480px) {
+  .contact-methods {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contact-method {
+    width: 100%;
+    justify-content: center;
+  }
 }

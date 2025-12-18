@@ -2,48 +2,48 @@ import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Plans.css";
 
-function Plans() {
+const Plans = () => {
   const navigate = useNavigate();
-  const [billingCycle, setBillingCycle] = useState("monthly"); // monthly/yearly toggle
+  const [billingCycle, setBillingCycle] = useState("monthly");
 
-  // Enhanced plans with extra enterprise & corporate features
+  /* ================= PLANS DATA ================= */
   const plans = [
     {
       id: "free",
       name: "Free",
       price: { monthly: 0, yearly: 0 },
       badge: "Free",
-      description: "Instant on-screen predictions and basic insights — perfect to try the product.",
+      description:
+        "Quick access to basic heart-risk insights. Ideal for first-time users and students.",
       features: [
-        "Basic heart risk predictions",
-        "General health insights & tips",
-        "Live preview (limited daily checks)",
+        "Basic heart risk prediction",
+        "General health insights",
+        "Limited daily checks",
         "Mobile & desktop access",
-        "Standard encryption in transit",
-        { text: "No history tracking", disabled: true },
-        { text: "No advanced AI models", disabled: true },
-        { text: "No exports / reports", disabled: true },
+        { text: "Prediction history", disabled: true },
+        { text: "Advanced AI models", disabled: true },
+        { text: "Reports & exports", disabled: true },
       ],
-      cta: { text: "Start for Free", action: () => navigate("/predict") },
+      cta: { text: "Start Free", action: () => navigate("/predict") },
       featured: false,
     },
     {
       id: "pro",
       name: "Pro",
-      price: { monthly: 12, yearly: 120 }, // yearly shows discounted annual total
-      badge: "Pro · Most Popular",
-      description: "For individuals and small teams who want history, trends, and downloadable reports.",
+      price: { monthly: 12, yearly: 120 },
+      badge: "Most Popular",
+      description:
+        "Best for individuals and teams who want tracking, reports and deeper AI insights.",
       features: [
         "Advanced AI prediction models",
-        "Save & track prediction history",
-        "Trend analysis & weekly summaries",
-        "Downloadable clinician-ready reports (PDF/Word)",
-        "Multi-device sync & profile management",
+        "Prediction history & trend analysis",
+        "Weekly health summaries",
+        "Downloadable PDF / Word reports",
+        "Personalized recommendations",
         "Priority email support",
-        "Health insights with personalized recommendations",
-        "Team seats (up to 5) for shared accounts",
+        "Up to 5 team members",
       ],
-      cta: { text: "Get Pro", action: () => navigate("/signup?plan=pro") },
+      cta: { text: "Upgrade to Pro", action: () => navigate("/signup?plan=pro") },
       featured: true,
     },
     {
@@ -51,114 +51,91 @@ function Plans() {
       name: "Enterprise",
       price: { monthly: 24, yearly: 240 },
       badge: "Enterprise",
-      description: "Designed for clinics, hospitals and corporate wellness programs — secure, scalable, and integratable.",
+      description:
+        "Built for hospitals, clinics and corporate wellness programs with compliance & scale.",
       features: [
-        "Everything in Pro",
-        "API + EHR integrations (FHIR-ready)",
-        "Clinic & team collaboration (roles & permissions)",
-        "Single Sign-On (SAML / OIDC)",
-        "Dedicated account manager & onboarding",
-        "HIPAA / GDPR compliance support",
-        "Custom SLAs, uptime guarantees, and performance tuning",
-        "Wearable device & EHR data ingestion",
-        "Custom analytics & exports (CSV / Excel / PDF)",
-        "On-prem / private-cloud / data residency options",
-        "Volume pricing & seat management",
-        "Training & professional services available",
+        "All Pro features",
+        "API & EHR integrations (FHIR)",
+        "Role-based access & SSO",
+        "HIPAA / GDPR readiness",
+        "Dedicated onboarding & support",
+        "Custom analytics & exports",
+        "Wearable device integrations",
       ],
       cta: { text: "Contact Sales", action: () => navigate("/contact") },
       featured: false,
     },
   ];
 
-  // helper to format price
-  const formatPrice = (value) => (value === 0 ? "Free" : `$${value}`);
+  /* ================= HELPERS ================= */
+  const formatPrice = (v) => (v === 0 ? "Free" : `$${v}`);
 
-  // computed values for visible price label (e.g., show /mo or /yr)
   const computedPlans = useMemo(
     () =>
       plans.map((p) => {
         const price = p.price[billingCycle];
-        const display = billingCycle === "monthly" ? `${formatPrice(price)} /mo` : `${formatPrice(price)} /yr`;
-        // compute effective monthly for yearly (for UI: yearly / 12)
-        const effectiveMonthly = billingCycle === "yearly" && price > 0 ? (price / 12).toFixed(2) : null;
-        return { ...p, displayPrice: display, effectiveMonthly };
+        return {
+          ...p,
+          displayPrice:
+            billingCycle === "monthly"
+              ? `${formatPrice(price)} /mo`
+              : `${formatPrice(price)} /yr`,
+          effectiveMonthly:
+            billingCycle === "yearly" && price > 0
+              ? (price / 12).toFixed(2)
+              : null,
+        };
       }),
-    [billingCycle, plans]
+    [billingCycle]
   );
 
-  // simple discount label when yearly chosen (assumes yearly = monthly * 12 * 0.8 in your prices)
-  const yearlyDiscountNote = useMemo(() => {
-    if (billingCycle !== "yearly") return null;
-    // compute percentage saved compared to monthly*12
-    const proMonthly = plans.find((p) => p.id === "pro").price.monthly;
-    const proYearly = plans.find((p) => p.id === "pro").price.yearly;
-    const pct = Math.round((1 - proYearly / (proMonthly * 12)) * 100);
-    return pct > 0 ? `Save ${pct}% vs monthly` : null;
-  }, [billingCycle, plans]);
-
-  // comparison matrix rows
-  const comparisonRows = [
-    { label: "Basic heart risk predictions", free: true, pro: true, ent: true },
-    { label: "Advanced AI models", free: false, pro: true, ent: true },
-    { label: "Prediction history & trends", free: false, pro: true, ent: true },
-    { label: "Clinician-ready reports", free: false, pro: true, ent: true },
-    { label: "API & EHR integration", free: false, pro: false, ent: true },
-    { label: "Clinic & team collaboration", free: false, pro: false, ent: true },
-    { label: "Single Sign-On (SSO)", free: false, pro: false, ent: true },
-    { label: "HIPAA / GDPR compliance support", free: false, pro: false, ent: true },
-    { label: "Dedicated onboarding & training", free: false, pro: false, ent: true },
-    { label: "Wearable device syncing", free: false, pro: false, ent: true },
-  ];
-
+  /* ================= UI ================= */
   return (
     <main className="plans-main">
-      {/* Hero */}
-      <section className="plans-hero" aria-labelledby="plansTitle">
-        <h1 id="plansTitle">
-          Choose the perfect <span className="plans-highlight">HeartCare</span> plan
+
+      {/* ================= HERO ================= */}
+      <section className="plans-hero">
+        <h1>
+          Simple & Transparent <span className="plans-highlight">Pricing</span>
         </h1>
         <p className="plans-subtitle">
-          From free personal checks to enterprise-grade clinical integrations — predictable pricing and flexible deployment.
+          Choose a plan that fits individuals, professionals, or enterprise healthcare needs.
         </p>
 
-        {/* Billing toggle */}
-        <div className="pricing-toggle" role="tablist" aria-label="Billing cycle">
+        {/* Billing Toggle */}
+        <div className="pricing-toggle">
           <button
-            role="tab"
-            aria-selected={billingCycle === "monthly"}
-            className={`toggle-btn ${billingCycle === "monthly" ? "active" : ""}`}
+            className={billingCycle === "monthly" ? "active" : ""}
             onClick={() => setBillingCycle("monthly")}
           >
             Monthly
           </button>
           <button
-            role="tab"
-            aria-selected={billingCycle === "yearly"}
-            className={`toggle-btn ${billingCycle === "yearly" ? "active" : ""}`}
+            className={billingCycle === "yearly" ? "active" : ""}
             onClick={() => setBillingCycle("yearly")}
           >
-            Yearly {billingCycle === "yearly" && yearlyDiscountNote ? <small className="save-note">({yearlyDiscountNote})</small> : <small className="save-note">(Save 20%)</small>}
+            Yearly <small>(Save 20%)</small>
           </button>
         </div>
       </section>
 
-      {/* Plan cards */}
-      <section className="plans-cards" aria-label="Pricing options">
+      {/* ================= PLAN CARDS ================= */}
+      <section className="plans-cards">
         {computedPlans.map((plan) => (
           <article
             key={plan.id}
             className={`plan-card ${plan.featured ? "featured-plan" : ""}`}
-            aria-labelledby={`plan-${plan.id}-title`}
           >
-            <div className={`plan-badge ${plan.id}`}>{plan.badge}</div>
+            <div className="plan-badge">{plan.badge}</div>
 
-            <div className="plan-header">
-              <h2 id={`plan-${plan.id}-title`} className="plan-name">{plan.name}</h2>
-              <div className="plan-price">
-                <span className="price-main">{plan.displayPrice}</span>
-                {plan.effectiveMonthly && <span className="price-sub">({`$${plan.effectiveMonthly}/mo`})</span>}
-              </div>
+            <h2 className="plan-name">{plan.name}</h2>
+            <div className="plan-price">
+              {plan.displayPrice}
+              {plan.effectiveMonthly && (
+                <span className="price-sub">
+                  (${plan.effectiveMonthly}/mo billed yearly)
+                </span>
+              )}
             </div>
 
             <p className="plan-desc">{plan.description}</p>
@@ -170,113 +147,94 @@ function Plans() {
                 return (
                   <li
                     key={i}
-                    className={`plan-feature ${disabled ? "disabled-feature" : "enabled-feature"}`}
-                    aria-disabled={disabled}
-                    title={typeof f === "object" && f.tooltip ? f.tooltip : ""}
+                    className={disabled ? "disabled-feature" : "enabled-feature"}
                   >
-                    <span className="feature-icon" aria-hidden>{disabled ? "✖" : "✔"}</span>
-                    <span className="feature-text">{text}</span>
+                    {disabled ? "✖" : "✔"} {text}
                   </li>
                 );
               })}
             </ul>
 
-            <div className="plan-actions">
-              <button
-                className={`plan-cta plan-cta-${plan.id}`}
-                onClick={() => plan.cta.action()}
-                aria-label={`${plan.cta.text} — ${plan.name}`}
-              >
-                {plan.cta.text}
-              </button>
+            <button
+              className={`plan-cta plan-${plan.id}`}
+              onClick={plan.cta.action}
+            >
+              {plan.cta.text}
+            </button>
 
-              {/* Enterprise quick contact (secondary) */}
-              {plan.id === "enterprise" && (
-                <button
-                  className="plan-cta-outline"
-                  onClick={() => navigate("/contact?reason=enterprise")}
-                  aria-label="Request demo or enterprise quote"
-                >
-                  Request a demo
-                </button>
-              )}
-            </div>
+            {plan.id === "enterprise" && (
+              <button
+                className="plan-cta-outline"
+                onClick={() => navigate("/contact?reason=enterprise")}
+              >
+                Request Demo
+              </button>
+            )}
           </article>
         ))}
       </section>
 
-      {/* Comparison table */}
-      <section className="plans-comparison" aria-labelledby="compareTitle">
-        <h2 id="compareTitle">Compare Plans</h2>
-        <div className="comparison-wrapper" role="table" aria-label="Comparison of plan features">
-          <table className="comparison-table">
-            <thead>
-              <tr>
-                <th>Feature</th>
-                <th>Free</th>
-                <th>Pro</th>
-                <th>Enterprise</th>
-              </tr>
-            </thead>
-            <tbody>
-              {comparisonRows.map((row, idx) => (
-                <tr key={idx}>
-                  <td>{row.label}</td>
-                  <td className="center">{row.free ? "✔" : "—"}</td>
-                  <td className="center">{row.pro ? "✔" : "—"}</td>
-                  <td className="center">{row.ent ? "✔" : "—"}</td>
-                </tr>
-              ))}
-
-              {/* extra rows highlighting enterprise perks */}
-              <tr>
-                <td>Dedicated account manager</td>
-                <td className="center">—</td>
-                <td className="center">—</td>
-                <td className="center">✔</td>
-              </tr>
-              <tr>
-                <td>Single Sign-On (SAML/OIDC)</td>
-                <td className="center">—</td>
-                <td className="center">—</td>
-                <td className="center">✔</td>
-              </tr>
-              <tr>
-                <td>On-site / remote training</td>
-                <td className="center">—</td>
-                <td className="center">—</td>
-                <td className="center">✔</td>
-              </tr>
-              <tr>
-                <td>HIPAA / GDPR support</td>
-                <td className="center">—</td>
-                <td className="center">—</td>
-                <td className="center">✔</td>
-              </tr>
-            </tbody>
-          </table>
+      {/* ================= TRUST & SECURITY ================= */}
+      <section className="plans-trust">
+        <h2>Security & Compliance</h2>
+        <p>
+          Built with healthcare-grade security practices to protect sensitive data.
+        </p>
+        <div className="trust-grid">
+          <div>🔒 Encrypted Data</div>
+          <div>🛡 HIPAA / GDPR Ready</div>
+          <div>📄 Audit Logs</div>
+          <div>☁ Secure Cloud / On-Prem</div>
         </div>
       </section>
 
-      {/* CTA & HR-like section for corporate/HR */}
-      <section className="plans-cta-hr" aria-labelledby="corporateTitle">
-        <h3 id="corporateTitle">For HR, Wellness & Clinics</h3>
+      {/* ================= FAQ ================= */}
+      <section className="plans-faq">
+        <h2>Frequently Asked Questions</h2>
+
+        <div className="faq-item">
+          <h4>Is this a medical diagnosis?</h4>
+          <p>
+            No. The system provides AI-based risk insights and does not replace
+            professional medical advice.
+          </p>
+        </div>
+
+        <div className="faq-item">
+          <h4>Can I upgrade or downgrade anytime?</h4>
+          <p>
+            Yes. Plans are flexible and can be changed at any time.
+          </p>
+        </div>
+
+        <div className="faq-item">
+          <h4>Do you support enterprise pilots?</h4>
+          <p>
+            Yes. We offer demos, pilots and custom integrations for hospitals
+            and corporate wellness programs.
+          </p>
+        </div>
+      </section>
+
+      {/* ================= ENTERPRISE CTA ================= */}
+      <section className="plans-cta-hr">
+        <h3>For Clinics, HR & Wellness Teams</h3>
         <p>
-          Running a corporate wellness program or managing a clinic? Ask about bulk
-          pricing, employee wellness integrations, and clinical workflows designed to
-          reduce admissions and improve preventive outcomes.
+          Reduce risk, improve preventive care and empower employees or patients
+          with AI-driven insights.
         </p>
         <div className="plans-cta-actions">
-          <button className="homepage-btn" onClick={() => navigate("/contact?reason=wellness")}>
-            Speak to an enterprise specialist
+          <button onClick={() => navigate("/contact?reason=enterprise")}>
+            Talk to Sales
           </button>
-          <button className="homepage-btn-outline" onClick={() => navigate("/demo")}>
-            Request product demo
+          <button onClick={() => navigate("/demo")}>
+            Request Live Demo
           </button>
         </div>
       </section>
+
     </main>
   );
-}
+};
 
 export default Plans;

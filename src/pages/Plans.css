@@ -1,405 +1,336 @@
-/* Plans.css — FINAL, ERROR-FREE, GORGEOUS PRICING PAGE (2025) */
+/* ================= ROOT ================= */
+:root {
+  --primary: #2563eb;
+  --secondary: #020617;
+  --accent: #22c55e;
+  --danger: #ef4444;
+  --bg-light: #f8fafc;
+  --bg-card: #ffffff;
+  --text-dark: #0f172a;
+  --text-muted: #475569;
+  --border-soft: #e5e7eb;
+}
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
+/* ================= RESET ================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Inter", "Segoe UI", sans-serif;
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 50%, #dbeafe 100%);
-  color: #1e293b;
-  line-height: 1.6;
+  background: var(--bg-light);
+  color: var(--text-dark);
 }
 
-/* Background orbs */
+/* ================= MAIN ================= */
 .plans-main {
-  position: relative;
-  overflow: hidden;
-  min-height: 100vh;
+  width: 100%;
+  padding-bottom: 80px;
 }
 
-.plans-main::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 40%),
-    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.12) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(34, 197, 94, 0.06) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: -1;
-}
-
-/* HERO */
+/* ================= HERO ================= */
 .plans-hero {
+  padding: 100px 10% 70px;
   text-align: center;
-  padding: 120px 5% 80px;
-  max-width: 1400px;
-  margin: 0 auto;
+  background: linear-gradient(135deg, #020617, #0f172a);
+  color: white;
 }
 
-#plansTitle {
-  font-size: 4.5rem;
-  font-weight: 900;
-  margin-bottom: 1.5rem;
-  background: linear-gradient(90deg, #1e293b 0%, #3b82f6 60%, #8b5cf6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.plans-hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
 }
 
 .plans-highlight {
-  background: linear-gradient(90deg, #8b5cf6, #ec4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #60a5fa;
 }
 
 .plans-subtitle {
-  font-size: 1.5rem;
-  color: #475569;
-  max-width: 800px;
-  margin: 0 auto 3rem;
+  margin-top: 16px;
+  font-size: 1.1rem;
+  color: #c7d2fe;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* BILLING TOGGLE */
+/* ================= BILLING TOGGLE ================= */
 .pricing-toggle {
+  margin-top: 40px;
   display: inline-flex;
-  background: white;
-  padding: 8px;
-  border-radius: 20px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-  margin: 2rem auto;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 40px;
+  padding: 6px;
 }
 
-.toggle-btn {
-  padding: 1rem 2.5rem;
+.pricing-toggle button {
+  padding: 10px 28px;
+  border-radius: 30px;
   border: none;
-  background: transparent;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #64748b;
   cursor: pointer;
-  border-radius: 16px;
-  transition: all 0.4s;
-  position: relative;
-  z-index: 2;
-}
-
-.toggle-btn.active {
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-  color: white;
-  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
-}
-
-.save-note {
-  display: block;
-  font-size: 0.9rem;
-  margin-top: 0.4rem;
+  background: transparent;
+  color: #e5e7eb;
   font-weight: 500;
+  transition: 0.3s;
 }
 
-/* PLAN CARDS */
+.pricing-toggle button.active {
+  background: white;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.pricing-toggle small {
+  margin-left: 4px;
+  color: var(--accent);
+}
+
+/* ================= PLAN CARDS ================= */
 .plans-cards {
+  margin-top: -60px;
+  padding: 0 10%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  gap: 3rem;
-  max-width: 1400px;
-  margin: 5rem auto;
-  padding: 0 5%;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 35px;
 }
 
 .plan-card {
-  background: white;
-  border-radius: 32px;
-  padding: 3.5rem 3rem;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.12);
-  transition: transform 0.5s, box-shadow 0.5s;
+  background: var(--bg-card);
+  border-radius: 22px;
+  padding: 40px 35px;
+  box-shadow: 0 20px 50px rgba(2, 6, 23, 0.1);
   position: relative;
-  border: 1px solid #e2e8f0;
+  transition: 0.35s;
 }
 
 .plan-card:hover {
-  transform: translateY(-20px);
-  box-shadow: 0 50px 120px rgba(0,0,0,0.2);
+  transform: translateY(-12px);
 }
 
+/* Featured */
 .featured-plan {
-  transform: scale(1.08);
-  border: 4px solid #8b5cf6;
-  box-shadow: 0 50px 120px rgba(139, 92, 246, 0.3);
-  z-index: 10;
+  border: 2px solid var(--primary);
+  transform: scale(1.05);
 }
 
-.featured-plan::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 6px;
-  background: linear-gradient(90deg, #8b5cf6, #ec4899);
-  border-radius: 28px 28px 0 0;
-}
-
+/* Badge */
 .plan-badge {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  background: 20px;
-  background: #1e293b;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
   color: white;
-  padding: 0.6rem 1.4rem;
-  border-radius: 50px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  padding: 6px 18px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 
-.plan-badge.pro {
-  background: linear-gradient(135deg, #8b5cf6, #ec4899);
-}
-
-.plan-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
+/* ================= PLAN CONTENT ================= */
 .plan-name {
-  font-size: 2.4rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 1.6rem;
+  margin-top: 20px;
 }
 
 .plan-price {
-  font-size: 3.8rem;
-  font-weight: 900;
-  color: #1e293b;
-  margin: 1.5rem 0;
-}
-
-.price-main {
-  font-size: 4.2rem;
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary);
 }
 
 .price-sub {
-  font-size: 1.4rem;
-  color: #64748b;
-  margin-left: 0.8rem;
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 6px;
 }
 
 .plan-desc {
-  color: #475569;
-  font-size: 1.2rem;
-  margin-bottom: 2.5rem;
-  line-height: 1.7;
+  text-align: center;
+  color: var(--text-muted);
+  margin-bottom: 25px;
+  line-height: 1.6;
 }
 
+/* ================= FEATURES ================= */
 .plan-features {
   list-style: none;
-  margin: 2.5rem 0;
+  margin-bottom: 30px;
 }
 
-.plan-feature {
-  padding: 1rem 0;
+.plan-features li {
   display: flex;
   align-items: center;
-  font-size: 1.15rem;
-  border-bottom: 1px solid #f1f5f9;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 0.95rem;
 }
 
-.feature-icon {
-  width: 32px;
-  font-size: 1.6rem;
-  margin-right: 1.2rem;
-}
-
-.enabled-feature .feature-icon {
-  color: #10b981;
-}
-
-.disabled-feature .feature-icon {
-  color: #94a3b8;
+.enabled-feature {
+  color: var(--text-dark);
 }
 
 .disabled-feature {
-  opacity: 0.6;
+  color: #94a3b8;
   text-decoration: line-through;
 }
 
-.plan-actions {
-  margin-top: 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-}
-
+/* ================= CTA BUTTONS ================= */
 .plan-cta {
-  padding: 1.2rem;
-  border: none;
-  border-radius: 16px;
-  font-size: 1.2rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.4s;
   width: 100%;
+  padding: 14px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  background: var(--primary);
+  color: white;
+  transition: 0.3s;
 }
-
-.plan-cta-free    { background: #e2e8f0; color: #1e293b; }
-.plan-cta-pro     { background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; box-shadow: 0 12px 30px rgba(59,130,246,0.4); }
-.plan-cta-enterprise { background: #1e293b; color: white; }
 
 .plan-cta:hover {
-  transform: translateY(-4px);
+  transform: scale(1.05);
 }
 
 .plan-cta-outline {
+  margin-top: 12px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 30px;
+  border: 2px solid var(--primary);
   background: transparent;
-  color: #1e293b;
-  border: 2px solid #1e293b;
-  padding: 1rem;
-  border-radius: 16px;
-  font-weight: 700;
+  color: var(--primary);
+  font-weight: 600;
   cursor: pointer;
 }
 
-.plan-cta-outline:hover {
-  background: #1e293b;
-  color: white;
-}
-
-/* COMPARISON TABLE */
-.plans-comparison {
-  padding: 100px 5%;
+/* ================= TRUST ================= */
+.plans-trust {
+  margin-top: 90px;
+  padding: 80px 10%;
   background: white;
-  margin: 100px 0;
-}
-
-#compareTitle {
   text-align: center;
-  font-size: 3rem;
-  font-weight: 800;
-  margin-bottom: 4rem;
-  background: linear-gradient(90deg, #1e293b, #64748b);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
-.comparison-wrapper {
-  overflow-x: auto;
-  border-radius: 20px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.1);
+.plans-trust h2 {
+  font-size: 2.3rem;
 }
 
-.comparison-table {
-  width: 100%;
-  min-width: 800px;
-  border-collapse: collapse;
-  background: white;
-  border-radius: 20px;
-  overflow: hidden;
+.plans-trust p {
+  margin-top: 10px;
+  color: var(--text-muted);
 }
 
-.comparison-table th,
-.comparison-table td {
-  padding: 1.5rem;
-  text-align: left;
-  border-bottom: 1px solid #e2e8f0;
+.trust-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
 }
 
-.comparison-table th {
-  background: #f8fafc;
-  font-weight: 700;
-  font-size: 1.2rem;
+.trust-grid div {
+  padding: 20px;
+  border-radius: 16px;
+  background: #f1f5f9;
+  font-weight: 500;
 }
 
-.center {
+/* ================= FAQ ================= */
+.plans-faq {
+  padding: 80px 10%;
+}
+
+.plans-faq h2 {
   text-align: center;
-  font-size: 1.6rem;
+  font-size: 2.3rem;
+  margin-bottom: 40px;
 }
 
-/* ENTERPRISE CTA */
+.faq-item {
+  max-width: 700px;
+  margin: 0 auto 30px;
+}
+
+.faq-item h4 {
+  margin-bottom: 6px;
+  color: var(--primary);
+}
+
+.faq-item p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ================= ENTERPRISE CTA ================= */
 .plans-cta-hr {
+  padding: 90px 10%;
   text-align: center;
-  padding: 120px 5%;
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  background: linear-gradient(135deg, #2563eb, #38bdf8);
   color: white;
-  border-radius: 40px 40px 0 0;
-  margin-top: 100px;
 }
 
-#corporateTitle {
-  font-size: 3.5rem;
-  margin-bottom: 2rem;
-  font-weight: 800;
+.plans-cta-hr h3 {
+  font-size: 2.4rem;
 }
 
 .plans-cta-hr p {
-  font-size: 1.4rem;
-  max-width: 800px;
-  margin: 0 auto 3rem;
-  opacity: 0.9;
+  margin-top: 14px;
+  font-size: 1.1rem;
 }
 
 .plans-cta-actions {
+  margin-top: 30px;
   display: flex;
-  gap: 2rem;
   justify-content: center;
-  flex-wrap: wrap;
+  gap: 20px;
 }
 
-.homepage-btn,
-.homepage-btn-outline {
-  padding: 1.4rem 3rem;
-  border-radius: 20px;
-  font-size: 1.3rem;
-  font-weight: 700;
+.plans-cta-actions button {
+  padding: 14px 36px;
+  border-radius: 30px;
+  border: none;
   cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: all 0.4s;
-}
-
-.homepage-btn {
+  font-weight: 600;
   background: white;
-  color: #1e293b;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  color: var(--primary);
 }
 
-.homepage-btn:hover {
-  transform: translateY(-8px);
-}
-
-.homepage-btn-outline {
+.plans-cta-actions button:last-child {
   background: transparent;
-  color: white;
   border: 2px solid white;
+  color: white;
 }
 
-.homepage-btn-outline:hover {
-  background: white;
-  color: #1e293b;
-}
-
-/* RESPONSIVE */
-@media (max-width: 1024px) {
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
   .plans-cards {
-    grid-template-columns: 1fr;
-    max-width: 600px;
+    margin-top: 40px;
   }
-  .featured-plan {
-    transform: scale(1.05);
-  }
-  #plansTitle { font-size: 3.8rem; }
-}
 
-@media (max-width: 768px) {
-  .pricing-toggle { padding: 1rem; }
-  .toggle-btn { padding: 0.8rem 1.8rem; font-size: 1.1rem; }
-  .plan-card { padding: 2.5rem 2rem; }
-  .price-main { font-size: 3.5rem; }
+  .featured-plan {
+    transform: none;
+  }
+
+  .plans-cta-actions {
+    flex-direction: column;
+  }
+}
+@media (max-width: 600px) {
+  .plans-hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .plans-hero {
+    padding: 80px 5% 50px;
+  }
+
+  .plans-cta-hr h3 {
+    font-size: 1.8rem;
+  }
 }

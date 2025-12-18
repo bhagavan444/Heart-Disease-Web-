@@ -1,287 +1,321 @@
-/* About.css - Bold Neumorphic Premium Portfolio 2026 */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
+/* ================= ROOT THEME ================= */
 :root {
-  --bg-main: #e0e5ec;
-  --bg-card: #e0e5ec;
-  --text-primary: #2d3748;
-  --text-secondary: #4a5568;
-  --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --accent-purple: #667eea;
-  --shadow-neumo: 12px 12px 24px #bec8d9, -12px -12px 24px #ffffff;
-  --shadow-neumo-inset: inset 8px 8px 16px #bec8d9, inset -8px -8px 16px #ffffff;
-  --shadow-hover: 20px 20px 40px #bec8d9, -20px -20px 40px #ffffff;
-  --radius-xl: 32px;
-  --radius-lg: 24px;
-  --radius-md: 18px;
-  --transition: all 0.4s ease;
+  --primary: #2563eb;
+  --secondary: #020617;
+  --accent: #22c55e;
+  --bg-light: #f8fafc;
+  --bg-card: #ffffff;
+  --text-dark: #0f172a;
+  --text-muted: #475569;
+  --border-soft: #e5e7eb;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-main: #2d3748;
-    --bg-card: #2d3748;
-    --text-primary: #e2e8f0;
-    --text-secondary: #a0aec0;
-    --shadow-neumo: 12px 12px 24px #1a202c, -12px -12px 24px #4a5568;
-    --shadow-neumo-inset: inset 8px 8px 16px #1a202c, inset -8px -8px 16px #4a5568;
-    --shadow-hover: 20px 20px 40px #1a202c, -20px -20px 40px #4a5568;
-  }
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", "Segoe UI", sans-serif;
 }
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg-main);
-  color: var(--text-primary);
-  line-height: 1.7;
-  padding: 2.5rem;
+  background: var(--bg-light);
+  color: var(--text-dark);
 }
 
+/* ================= MAIN ================= */
 .abt-main {
-  max-width: 1400px;
-  margin: 0 auto;
+  width: 100%;
+  padding-bottom: 60px;
 }
 
-/* Hero */
+/* ================= HERO ================= */
 .abt-hero {
-  background: var(--bg-card);
-  border-radius: var(--radius-xl);
-  padding: 4rem;
-  margin-bottom: 3rem;
-  box-shadow: var(--shadow-neumo);
-  transition: var(--transition);
-}
-
-.abt-hero:hover {
-  box-shadow: var(--shadow-hover);
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #020617, #0f172a);
+  color: white;
+  padding: 80px 8%;
 }
 
 .abt-hero-inner {
+  max-width: 1200px;
   display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 4rem;
+  grid-template-columns: 1fr 2fr;
+  gap: 60px;
   align-items: center;
 }
 
-@media (max-width: 900px) {
-  .abt-hero-inner { grid-template-columns: 1fr; text-align: center; }
-}
-
+/* ================= PROFILE CARD ================= */
 .abt-avatar-card {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 30px;
+  border-radius: 20px;
   text-align: center;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
 }
 
 .abt-avatar {
-  width: 260px;
-  height: 260px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: var(--shadow-neumo);
-  transition: var(--transition);
-}
-
-.abt-avatar:hover {
-  box-shadow: var(--shadow-neumo-inset);
+  border: 4px solid rgba(255, 255, 255, 0.3);
 }
 
 .abt-badges {
-  margin-top: 2rem;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 10px;
 }
 
 .badge {
-  padding: 1rem 1.5rem;
-  background: var(--bg-card);
-  color: var(--accent-purple);
-  border-radius: var(--radius-lg);
-  font-weight: 700;
-  box-shadow: var(--shadow-neumo);
-  transition: var(--transition);
+  background: rgba(255, 255, 255, 0.15);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
 }
 
-.badge:hover {
-  box-shadow: var(--shadow-neumo-inset);
+/* ================= INTRO ================= */
+.abt-intro {
+  max-width: 600px;
 }
 
 .abt-name {
-  font-size: 3.5rem;
-  font-weight: 800;
-  margin-bottom: 0.75rem;
+  font-size: 3rem;
+  font-weight: 700;
 }
 
 .abt-subtitle {
-  font-size: 1.4rem;
-  color: var(--accent-purple);
-  margin-bottom: 1rem;
+  margin-top: 10px;
+  font-size: 1.1rem;
+  color: #c7d2fe;
 }
 
 .abt-location {
-  font-size: 1.2rem;
-  color: var(--text-secondary);
-  margin-bottom: 2rem;
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color: #94a3b8;
 }
 
 .abt-quote {
-  font-size: 1.6rem;
+  margin-top: 25px;
+  padding-left: 18px;
+  border-left: 4px solid var(--accent);
   font-style: italic;
-  color: var(--text-primary);
-  margin: 3rem 0;
-  padding: 2rem;
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-neumo-inset);
+  color: #e5e7eb;
 }
 
+/* ================= CTA ================= */
 .abt-cta-row {
+  margin-top: 30px;
   display: flex;
-  gap: 2rem;
-  margin: 3rem 0;
-  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .abt-cta-btn {
-  padding: 1.2rem 3rem;
-  background: var(--accent-gradient);
-  color: white;
-  border-radius: var(--radius-lg);
+  padding: 12px 26px;
+  background: var(--accent);
+  color: #022c22;
+  border-radius: 30px;
+  font-weight: 600;
   text-decoration: none;
-  font-weight: 700;
-  box-shadow: var(--shadow-neumo);
-  transition: var(--transition);
+  transition: 0.3s;
 }
 
 .abt-cta-btn:hover {
-  box-shadow: var(--shadow-neumo-inset);
+  transform: translateY(-3px);
 }
 
 .abt-cta-link {
-  padding: 1.2rem 3rem;
-  background: var(--bg-card);
-  color: var(--accent-purple);
-  border-radius: var(--radius-lg);
+  color: #93c5fd;
   text-decoration: none;
-  font-weight: 700;
-  box-shadow: var(--shadow-neumo);
-  transition: var(--transition);
+  font-weight: 500;
 }
 
 .abt-cta-link:hover {
-  box-shadow: var(--shadow-neumo-inset);
+  text-decoration: underline;
 }
 
-/* Cards */
+/* ================= SOCIAL LINKS ================= */
+.abt-socials {
+  margin-top: 25px;
+  display: flex;
+  gap: 18px;
+}
+
+.abt-socials a {
+  color: #e0e7ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.abt-socials a:hover {
+  color: var(--accent);
+}
+
+/* ================= CARDS ================= */
 .abt-card {
+  max-width: 1100px;
+  margin: 60px auto;
   background: var(--bg-card);
-  border-radius: var(--radius-xl);
-  padding: 3rem;
-  margin-bottom: 3rem;
-  box-shadow: var(--shadow-neumo);
-  transition: var(--transition);
-}
-
-.abt-card:hover {
-  box-shadow: var(--shadow-hover);
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(2, 6, 23, 0.08);
 }
 
 .abt-section-title {
-  font-size: 2.2rem;
-  font-weight: 800;
-  margin-bottom: 2.5rem;
+  font-size: 2rem;
+  margin-bottom: 30px;
   text-align: center;
-  color: var(--accent-purple);
+  color: var(--primary);
 }
 
-/* Stats */
+/* ================= STATS ================= */
 .abt-stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
 }
 
 .stat {
   text-align: center;
-  padding: 2rem;
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-neumo-inset);
 }
 
 .stat-value {
-  font-size: 3.5rem;
-  font-weight: 800;
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--primary);
 }
 
-/* Skills */
+.stat-label {
+  margin-top: 6px;
+  color: var(--text-muted);
+}
+
+/* ================= SKILLS ================= */
 .abt-skills-grid {
   display: grid;
-  gap: 2rem;
-}
-
-.skill {
-  padding: 1.5rem;
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-neumo-inset);
+  gap: 22px;
 }
 
 .skill-title {
-  font-weight: 700;
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 6px;
 }
 
 .skill-bar {
-  height: 20px;
-  background: var(--bg-card);
+  height: 10px;
+  background: #e5e7eb;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: var(--shadow-neumo-inset);
 }
 
 .skill-fill {
   height: 100%;
-  background: var(--accent-gradient);
-  border-radius: 10px;
-  transition: width 2s ease-out;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
 }
 
-/* Projects & Lists */
-.project {
-  padding: 2rem;
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
-  margin-bottom: 2rem;
-  box-shadow: var(--shadow-neumo-inset);
+/* ================= PROJECTS ================= */
+.project-list {
+  display: grid;
+  gap: 30px;
+}
+
+.project h3 {
+  color: var(--secondary);
+}
+
+.project p {
+  margin: 10px 0 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
 }
 
 .project-links a {
-  color: var(--accent-purple);
+  margin-right: 16px;
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+/* ================= ROADMAP ================= */
+.roadmap-list {
+  padding-left: 20px;
+  line-height: 1.8;
+}
+
+/* ================= ETHICS ================= */
+.abt-ethics p {
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+/* ================= CONTACT ================= */
+.contact-actions {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.homepage-btn {
+  padding: 12px 26px;
+  background: var(--primary);
+  color: white;
+  border-radius: 30px;
+  text-decoration: none;
   font-weight: 600;
-  margin-right: 1.5rem;
 }
 
-.pubs-list, .collab-list, .roadmap-list {
-  padding-left: 2rem;
+.homepage-btn-outline {
+  padding: 12px 26px;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
 }
 
-.pubs-list li, .collab-list li, .roadmap-list li {
-  margin-bottom: 1.5rem;
-  font-size: 1.1rem;
-}
-
-/* Footer */
+/* ================= FOOTER ================= */
 .abt-footer-note {
   text-align: center;
-  padding: 3rem;
-  color: var(--text-secondary);
-  font-size: 1rem;
+  padding: 20px;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .abt-hero-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .abt-cta-row,
+  .abt-socials {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .abt-card {
+    padding: 35px;
+  }
+}
+@media (max-width: 500px) {
+  .abt-hero {
+    padding: 60px 5%;
+  }
+
+  .abt-name {
+    font-size: 2.2rem;
+  }
+
+  .abt-card {
+    padding: 25px;
+  }
 }
