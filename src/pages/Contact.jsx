@@ -1,227 +1,218 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Contact.css";
+import { Helmet } from "react-helmet";
 
 const Contact = () => {
   const currentYear = new Date().getFullYear();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success' or 'error'
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    // Simulate form submission (replace with real backend in production)
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSubmitStatus("success");
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    }, 1500);
+  };
 
   return (
-    <main className="contact-main" aria-labelledby="contact-heading">
+    <>
+      <Helmet>
+        <title>Contact G S S S Bhagavan | AI & Healthcare Developer</title>
+        <meta
+          name="description"
+          content="Get in touch with G S S S Bhagavan for AI/ML collaborations, healthcare tech projects, internships, or professional opportunities."
+        />
+      </Helmet>
 
-      {/* ================= HERO / INTRO ================= */}
-      <section className="contact-card" aria-labelledby="contact-title">
-        <h1 id="contact-title" className="contact-title">
-          <span className="contact-emoji" aria-hidden>📬</span>
-          Let’s Connect
-        </h1>
+      <main className="contact-main" aria-labelledby="contact-heading">
 
-        <p className="contact-intro">
-          I work at the intersection of <strong>Artificial Intelligence</strong> and
-          <strong> Healthcare Technology</strong>, building scalable, real-world
-          prediction systems like <strong>HeartCare Predictor</strong>.
-          <br /><br />
-          Whether you’re a recruiter, startup founder, researcher, or healthcare
-          professional — I’m always open to meaningful discussions and collaborations.
-        </p>
+        {/* ================= HERO / INTRO ================= */}
+        <section className="contact-hero" aria-labelledby="contact-title">
+          <div className="contact-hero-inner">
+            <h1 id="contact-title" className="contact-title">
+              <span className="contact-emoji">📬</span>
+              Let’s Build the Future of Healthcare AI
+            </h1>
 
-        <p className="contact-highlight">
-          Let’s explore how AI can create measurable impact in preventive healthcare.
-        </p>
+            <p className="contact-intro">
+              I specialize in <strong>Artificial Intelligence for Healthcare</strong> — developing real-time predictive systems like <strong>HeartCare Predictor</strong> using explainable ML and full-stack engineering.
+              <br /><br />
+              Open to collaborations with startups, researchers, hospitals, and tech teams driving innovation in preventive medicine.
+            </p>
 
-        {/* ================= DIRECT CONTACT ================= */}
-        <div className="contact-methods" aria-label="Direct contact methods">
-          <a
-            className="contact-method"
-            href="tel:+917569205626"
-            aria-label="Call G S S S Bhagavan"
-          >
-            <span className="contact-icon" aria-hidden>📞</span>
-            <span className="contact-details">+91&nbsp;75692&nbsp;05626</span>
-          </a>
+            <div className="contact-quick-actions">
+              <a href="tel:+917569205626" className="quick-contact phone">
+                <span className="quick-icon">📞</span>
+                <span>+91 75692 05626</span>
+              </a>
+              <a href="mailto:g.sivasatyasaibhagavan@gmail.com" className="quick-contact email">
+                <span className="quick-icon">✉️</span>
+                <span>g.sivasatyasaibhagavan@gmail.com</span>
+              </a>
+            </div>
 
-          <a
-            className="contact-method"
-            href="mailto:g.sivasatyasaibhagavan@gmail.com"
-            aria-label="Email G S S S Bhagavan"
-          >
-            <span className="contact-icon" aria-hidden>✉️</span>
-            <span className="contact-details">
-              g.sivasatyasaibhagavan@gmail.com
-            </span>
-          </a>
-        </div>
+            <nav className="contact-socials">
+              <a
+                href="https://github.com/bhagavan444"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-btn github"
+                aria-label="GitHub Profile"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
+                  alt=""
+                />
+                <span>GitHub</span>
+              </a>
+              <a
+                href="https://linkedin.com/in/bhagavan444"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-btn linkedin"
+                aria-label="LinkedIn Profile"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg"
+                  alt=""
+                />
+                <span>LinkedIn</span>
+              </a>
+            </nav>
 
-        {/* ================= SOCIAL LINKS ================= */}
-        <nav className="contact-socials" aria-label="Professional profiles">
-          <a
-            href="https://github.com/bhagavan444"
-            className="contact-social-btn github"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
-              alt="GitHub profile"
-            />
-            <span>GitHub</span>
-          </a>
+            <a
+              href="mailto:g.sivasatyasaibhagavan@gmail.com?subject=Collaboration%20Inquiry"
+              className="contact-primary-cta"
+            >
+              Start a Conversation
+            </a>
+          </div>
 
-          <a
-            href="https://linkedin.com/in/bhagavan444"
-            className="contact-social-btn linkedin"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg"
-              alt="LinkedIn profile"
-            />
-            <span>LinkedIn</span>
-          </a>
-        </nav>
+          {/* Subtle ECG background */}
+          <div className="ecg-background">
+            <svg className="ecg-wave" viewBox="0 0 1000 200" preserveAspectRatio="none">
+              <path d="M0,100 L100,100 L120,100 L125,40 L130,160 L135,100 L200,100 L1000,100" />
+            </svg>
+            <svg className="ecg-wave ecg-wave-2" viewBox="0 0 1000 200" preserveAspectRatio="none">
+              <path d="M0,100 L100,100 L120,100 L125,40 L130,160 L135,100 L200,100 L1000,100" />
+            </svg>
+          </div>
+        </section>
 
-        {/* ================= PRIMARY CTA ================= */}
-        <a
-          href="mailto:g.sivasatyasaibhagavan@gmail.com"
-          className="contact-primary-btn"
-          aria-label="Send email"
-        >
-          Contact Me
-        </a>
-      </section>
+        {/* ================= ENHANCED CONTACT FORM ================= */}
+        
 
-      {/* ================= CONTACT FORM ================= */}
-      <section className="contact-form-card" aria-labelledby="message-heading">
-        <h2 id="message-heading" className="contact-section-title">
-          Send a Quick Message
-        </h2>
+        {/* ================= COLLABORATION INTERESTS ================= */}
+        <section className="contact-interests">
+          <div className="contact-card">
+            <h2 className="contact-section-title">Areas of Collaboration</h2>
+            <p className="contact-interests-intro">
+              I’m particularly excited about projects involving:
+            </p>
 
-        <p className="contact-form-desc">
-          Prefer a written message? Fill out the form below and I’ll respond as soon as possible.
-        </p>
+            <div className="interests-grid">
+              <div className="interest-item">
+                <span className="interest-emoji">🧠</span>
+                <strong>Medical AI & Predictive Modeling</strong>
+              </div>
+              <div className="interest-item">
+                <span className="interest-emoji">🏥</span>
+                <strong>Clinical Decision Support Systems</strong>
+              </div>
+              <div className="interest-item">
+                <span className="interest-emoji">📊</span>
+                <strong>Population Health Analytics</strong>
+              </div>
+              <div className="interest-item">
+                <span className="interest-emoji">🔬</span>
+                <strong>Research & Academic Publications</strong>
+              </div>
+              <div className="interest-item">
+                <span className="interest-emoji">⚡</span>
+                <strong>Real-Time Health Monitoring</strong>
+              </div>
+              <div className="interest-item">
+                <span className="interest-emoji">🌍</span>
+                <strong>Global Health Initiatives</strong>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <form
-          className="contact-form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            alert("Message submitted (demo)");
-          }}
-        >
-          <label className="sr-only" htmlFor="name">Name</label>
-          <input
-            id="name"
-            type="text"
-            placeholder="Your Name"
-            className="contact-input"
-            required
-          />
+        {/* ================= FAQ ================= */}
+        <section className="contact-faq">
+          <div className="contact-card">
+            <h2 className="contact-section-title">Frequently Asked Questions</h2>
 
-          <label className="sr-only" htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="Your Email"
-            className="contact-input"
-            required
-          />
+            <div className="faq-list">
+              <details className="faq-item">
+                <summary>What is your typical response time?</summary>
+                <p>I usually respond within 24–48 hours on weekdays.</p>
+              </details>
 
-          <label className="sr-only" htmlFor="message">Message</label>
-          <textarea
-            id="message"
-            placeholder="Your Message..."
-            rows="4"
-            className="contact-textarea"
-            required
-          />
+              <details className="faq-item">
+                <summary>Do you accept freelance or consulting work?</summary>
+                <p>Yes — selectively for impactful healthcare AI projects.</p>
+              </details>
 
-          <button type="submit" className="contact-submit-btn">
-            Send Message
-          </button>
-        </form>
-      </section>
+              <details className="faq-item">
+                <summary>Are you open to internships or mentoring?</summary>
+                <p>Absolutely. I enjoy guiding students passionate about AI in healthcare.</p>
+              </details>
 
-      {/* ================= COLLABORATION ================= */}
-      <section className="contact-collab-card" aria-labelledby="collab-heading">
-        <h2 id="collab-heading" className="contact-section-title">
-          Collaboration & Opportunities
-        </h2>
+              <details className="faq-item">
+                <summary>Can we schedule a call?</summary>
+                <p>Yes! Just email me your availability and preferred platform (Google Meet, Zoom).</p>
+              </details>
+            </div>
+          </div>
+        </section>
 
-        <p className="contact-collab-text">
-          I collaborate with <strong>AI startups</strong>, <strong>health-tech teams</strong>,
-          <strong>research institutions</strong>, and <strong>clinical professionals</strong>.
-        </p>
+        {/* ================= AVAILABILITY & LOCATION ================= */}
+        <section className="contact-info-grid">
+          <div className="contact-card availability-card">
+            <h2 className="contact-section-title">Availability</h2>
+            <p>
+              <strong>General Inquiries:</strong> Mon–Sat, 10 AM – 6 PM IST<br />
+              <strong>Urgent / Time-Sensitive:</strong> Anytime via phone
+            </p>
+          </div>
 
-        <ul className="collab-list">
-          <li>🤝 AI / ML Model Integration</li>
-          <li>🏥 Clinical & Medical AI Research</li>
-          <li>📊 Predictive Analytics Systems</li>
-          <li>🧠 Deep Learning & Model Optimization</li>
-          <li>🌐 MERN & Flask Full-Stack Development</li>
-        </ul>
+          <div className="contact-card location-card">
+            <h2 className="contact-section-title">Location</h2>
+            <p>
+              <strong>Eluru, Andhra Pradesh, India</strong><br />
+              Fully equipped for <strong>remote/global collaboration</strong>
+            </p>
+          </div>
+        </section>
 
-        <p className="contact-collab-bottom">
-          If your work aligns with healthcare innovation, I’d love to explore collaboration.
-        </p>
-      </section>
-
-      {/* ================= FAQ ================= */}
-      <section className="contact-faq-card" aria-labelledby="faq-heading">
-        <h2 id="faq-heading" className="contact-section-title">
-          Frequently Asked Questions
-        </h2>
-
-        <div className="faq-item">
-          <strong>What is the usual response time?</strong>
-          <p>Emails are typically answered within 24 hours.</p>
-        </div>
-
-        <div className="faq-item">
-          <strong>Do you collaborate on academic research?</strong>
+        {/* ================= FOOTER ================= */}
+        <footer className="contact-footer">
           <p>
-            Yes — especially in AI-driven healthcare, predictive modeling, and data science.
+            © {currentYear} G S S S Bhagavan · AI Engineer & Healthcare Innovator
           </p>
-        </div>
+          <p>Building ethical, impactful AI for preventive healthcare worldwide.</p>
+        </footer>
 
-        <div className="faq-item">
-          <strong>Can we schedule a meeting?</strong>
-          <p>
-            Absolutely. Reach out via email or LinkedIn to schedule a call or Google Meet.
-          </p>
-        </div>
-      </section>
-
-      {/* ================= AVAILABILITY ================= */}
-      <section className="contact-hours-card" aria-labelledby="hours-heading">
-        <h2 id="hours-heading" className="contact-section-title">
-          Availability
-        </h2>
-
-        <p className="contact-hours-text">
-          <strong>Monday – Saturday:</strong> 10:00 AM – 6:00 PM
-          <br />
-          <strong>Sunday:</strong> Urgent queries only
-        </p>
-      </section>
-
-      {/* ================= LOCATION ================= */}
-      <section className="contact-location-card" aria-labelledby="location-heading">
-        <h2 id="location-heading" className="contact-section-title">
-          Location
-        </h2>
-
-        <p>
-          Based in <strong>Eluru, Andhra Pradesh, India</strong>.  
-          Open to <strong>remote opportunities</strong> and global collaboration.
-        </p>
-      </section>
-
-      {/* ================= FOOTER ================= */}
-      <footer className="contact-footer-note">
-        © {currentYear} G S S S Bhagavan — AI & Health-Tech Developer  
-        <br />
-        Building intelligent systems for preventive healthcare.
-      </footer>
-
-    </main>
+      </main>
+    </>
   );
 };
 

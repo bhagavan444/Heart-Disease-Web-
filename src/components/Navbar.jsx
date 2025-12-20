@@ -1,84 +1,165 @@
-import React, { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import "./Navbar.css";
 
 function Navbar({ handleLogout }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const profileRef = useRef(null);
+  const navigate = useNavigate();
 
+  /* ================= AUTH STATE ================= */
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setIsAuthenticated(!!user);
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser);
     });
     return () => unsubscribe();
   }, []);
 
+  /* ================= CLOSE PROFILE ON OUTSIDE CLICK ================= */
+  useEffect(() => {
+    const handler = (e) => {
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
+        setProfileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  const isLoggedIn = Boolean(user);
   const closeMenu = () => setMenuOpen(false);
 
+  const getInitials = () =>
+    user?.email ? user.email.charAt(0).toUpperCase() : "U";
+
+  /* ================= ADMIN CHECK ================= */
+  const isAdmin =
+    user?.email === "g.sivasatyasaibhagavan@gmail.com";
+
   return (
-    <nav className="navbar" role="navigation" aria-label="Primary Navigation">
-      {/* ================= LOGO ================= */}
-      <div className="navbar-logo">
-        <Link to="/" onClick={closeMenu}>
-          Heart AI
+    <nav className="navbar">
+      {/* ================= BRAND ================= */}
+      <div className="navbar-brand">
+        <Link to="/" className="navbar-logo" onClick={closeMenu}>
+          Cardiac<span>-AI</span>
         </Link>
       </div>
 
       {/* ================= LINKS ================= */}
-      <div className={`navbar-links ${menuOpen ? "active" : ""}`}>
-        <NavLink to="/" onClick={closeMenu}>
-          Home
-        </NavLink>
+      <div className={`navbar-links ${menuOpen ? "open" : ""}`}>
+        <NavLink to="/" onClick={closeMenu}>Cardiac-AI Core</NavLink>
+        <NavLink to="/about" onClick={closeMenu}>Cardiac-Intelligence</NavLink>
+        <NavLink to="/plans" onClick={closeMenu}>Cardiac-AI Plans</NavLink>
+        <NavLink to="/contact" onClick={closeMenu}>Connect</NavLink>
 
-        <NavLink to="/about" onClick={closeMenu}>
-          About
-        </NavLink>
-
-        <NavLink to="/plans" onClick={closeMenu}>
-          plans
-        </NavLink>
-
-        <NavLink to="/contact" onClick={closeMenu}>
-          Contact
-        </NavLink>
-
-        {/* Auth-only links */}
-        {isAuthenticated && (
-          <NavLink to="/predict" onClick={closeMenu}>
-            Heart Analyzer
+        {isLoggedIn && (
+          <NavLink to="/predict" onClick={closeMenu} className="highlight">
+            Cardiac-AI Prediction
           </NavLink>
         )}
 
-        {/* Auth Action */}
-        {!isAuthenticated ? (
+        {/* ================= ADMIN LINK (ONLY FOR YOU) ================= */}
+        {isLoggedIn && isAdmin && (
           <NavLink
-            to="/login"
-            className="navbar-btn"
+            to="/admin"
             onClick={closeMenu}
+            className="highlight admin-link"
           >
-            Sign In
+            Admin
           </NavLink>
-        ) : (
+        )}
+
+        {/* ================= PROFILE DROPDOWN ================= */}
+        {isLoggedIn && (
+          <div className="navbar-profile-wrapper" ref={profileRef}>
+            <button
+              className="navbar-profile-btn"
+              onClick={() => setProfileOpen(!profileOpen)}
+              aria-label="Open profile menu"
+            >
+              {user.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  alt="Profile"
+                  className="profile-avatar"
+                />
+              ) : (
+                <div className="profile-avatar fallback">
+                  {getInitials()}
+                </div>
+              )}
+            </button>
+
+            {profileOpen && (
+              <div className="profile-dropdown">
+                <div className="profile-info">
+                  <strong>{user.displayName || "User"}</strong>
+                  <span>{user.email}</span>
+                </div>
+
+                <div className="profile-divider" />
+
+                <button
+                  onClick={() => {
+                    navigate("/profile");
+                    setProfileOpen(false);
+                    closeMenu();
+                  }}
+                >
+                  Profile
+                </button>
+
+                <button
+                  onClick={() => {
+                    navigate("/history");
+                    setProfileOpen(false);
+                    closeMenu();
+                  }}
+                >
+                  My Recommendations
+                </button>
+
+                <div className="profile-divider" />
+
+                <button
+                  className="logout-btn"
+                  onClick={() => {
+                    handleLogout();
+                    setProfileOpen(false);
+                    closeMenu();
+                  }}
+                >
+                  Log out
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ================= AUTH CTA ================= */}
+        {!isLoggedIn && (
           <button
-            type="button"
-            className="navbar-btn"
+            className="navbar-profile-btn login-avatar"
             onClick={() => {
-              handleLogout();
+              navigate("/login");
               closeMenu();
             }}
+            aria-label="Login or Sign up"
+            title="Login / Sign up"
           >
-            Sign Out
+            <div className="profile-avatar fallback">🔐</div>
           </button>
         )}
       </div>
 
-      {/* ================= MOBILE TOGGLE ================= */}
+      {/* ================= HAMBURGER ================= */}
       <button
-        className={`navbar-hamburger ${menuOpen ? "open" : ""}`}
+        className={`navbar-toggle ${menuOpen ? "active" : ""}`}
         onClick={() => setMenuOpen(!menuOpen)}
-        aria-label="Toggle menu"
-        aria-expanded={menuOpen}
+        aria-label="Toggle navigation"
       >
         <span />
         <span />

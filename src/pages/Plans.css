@@ -1,336 +1,492 @@
-/* ================= ROOT ================= */
-:root {
-  --primary: #2563eb;
-  --secondary: #020617;
-  --accent: #22c55e;
-  --danger: #ef4444;
-  --bg-light: #f8fafc;
-  --bg-card: #ffffff;
-  --text-dark: #0f172a;
-  --text-muted: #475569;
-  --border-soft: #e5e7eb;
-}
+/* Plans.css - Flagship MNC Enterprise Pricing Design (2025 Edition) */
+/* Ultra-premium medical-tech aesthetic with optimized compact plan cards */
 
-/* ================= RESET ================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: "Inter", "Segoe UI", sans-serif;
 }
 
 body {
-  background: var(--bg-light);
-  color: var(--text-dark);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
+  color: #e2e8f0;
+  min-height: 100vh;
 }
 
-/* ================= MAIN ================= */
 .plans-main {
-  width: 100%;
-  padding-bottom: 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
 /* ================= HERO ================= */
 .plans-hero {
-  padding: 100px 10% 70px;
   text-align: center;
-  background: linear-gradient(135deg, #020617, #0f172a);
-  color: white;
+  padding: 8rem 2rem 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.plans-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(96, 165, 250, 0.15), transparent 50%),
+              radial-gradient(circle at 20% 80%, rgba(167, 139, 250, 0.1), transparent 50%),
+              radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.1), transparent 50%);
+  pointer-events: none;
 }
 
 .plans-hero h1 {
-  font-size: 3rem;
-  font-weight: 700;
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
 }
 
 .plans-highlight {
-  color: #60a5fa;
+  background: linear-gradient(90deg, #60a5fa, #a78bfa, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .plans-subtitle {
-  margin-top: 16px;
-  font-size: 1.1rem;
-  color: #c7d2fe;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  font-size: 1.4rem;
+  color: #94a3b8;
+  max-width: 800px;
+  margin: 0 auto 3rem;
 }
 
-/* ================= BILLING TOGGLE ================= */
+/* Pricing Toggle */
 .pricing-toggle {
-  margin-top: 40px;
   display: inline-flex;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 40px;
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(16px);
+  border-radius: 50px;
   padding: 6px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .pricing-toggle button {
-  padding: 10px 28px;
-  border-radius: 30px;
-  border: none;
-  cursor: pointer;
+  padding: 0.9rem 2rem;
+  border-radius: 50px;
   background: transparent;
-  color: #e5e7eb;
-  font-weight: 500;
-  transition: 0.3s;
+  color: #94a3b8;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  border: none;
 }
 
 .pricing-toggle button.active {
-  background: white;
-  color: var(--primary);
-  font-weight: 600;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
 }
 
-.pricing-toggle small {
-  margin-left: 4px;
-  color: var(--accent);
+.save-badge {
+  background: #10b981;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
 }
 
-/* ================= PLAN CARDS ================= */
+/* ================= PLAN CARDS - REDUCED HEIGHT ================= */
 .plans-cards {
-  margin-top: -60px;
-  padding: 0 10%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 35px;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 3rem;
+  margin: 6rem 0;
+  padding: 0 2rem;
 }
 
 .plan-card {
-  background: var(--bg-card);
-  border-radius: 22px;
-  padding: 40px 35px;
-  box-shadow: 0 20px 50px rgba(2, 6, 23, 0.1);
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 32px;
+  padding: 2.2rem; /* Reduced from 3rem */
   position: relative;
-  transition: 0.35s;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  min-height: auto; /* Allow natural height */
+}
+
+.plan-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #60a5fa, #a78bfa);
+  transform: scaleX(0);
+  transition: transform 0.5s ease;
+}
+
+.plan-card:hover::before {
+  transform: scaleX(1);
 }
 
 .plan-card:hover {
-  transform: translateY(-12px);
+  transform: translateY(-20px);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+  border-color: #60a5fa;
 }
 
-/* Featured */
 .featured-plan {
-  border: 2px solid var(--primary);
+  background: rgba(59, 130, 246, 0.1);
+  border-color: #3b82f6;
   transform: scale(1.05);
+  z-index: 2;
 }
 
-/* Badge */
+.featured-plan::before {
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+  transform: scaleX(1);
+}
+
 .plan-badge {
   position: absolute;
-  top: -14px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--primary);
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #ec4899, #a78bfa);
   color: white;
-  padding: 6px 18px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(236, 72, 153, 0.4);
 }
 
-/* ================= PLAN CONTENT ================= */
 .plan-name {
-  text-align: center;
-  font-size: 1.6rem;
-  margin-top: 20px;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0.8rem 0; /* Reduced */
+  color: #60a5fa;
+}
+
+.plan-price-wrapper {
+  margin: 1.5rem 0; /* Reduced from 2rem */
 }
 
 .plan-price {
-  text-align: center;
-  margin: 20px 0;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--primary);
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: white;
 }
 
-.price-sub {
-  display: block;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-top: 6px;
+.price-equivalent {
+  font-size: 1.1rem;
+  color: #94a3b8;
+  margin-top: 0.5rem;
+}
+
+.plan-trial {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+  padding: 0.7rem 1rem; /* Slightly reduced */
+  border-radius: 50px;
+  font-weight: 600;
+  margin-top: 0.8rem;
+  display: inline-block;
+  border: 1px solid rgba(16, 185, 129, 0.4);
 }
 
 .plan-desc {
-  text-align: center;
-  color: var(--text-muted);
-  margin-bottom: 25px;
-  line-height: 1.6;
+  font-size: 1.15rem;
+  color: #cbd5e1;
+  margin-bottom: 1.5rem; /* Reduced from 2rem */
+  line-height: 1.5;
 }
 
-/* ================= FEATURES ================= */
 .plan-features {
   list-style: none;
-  margin-bottom: 30px;
+  margin-bottom: 2rem; /* Reduced from 3rem */
 }
 
 .plan-features li {
+  padding: 0.75rem 0; /* Reduced from 1rem */
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 0;
-  font-size: 0.95rem;
+  gap: 1rem;
+  font-size: 1.05rem; /* Slightly smaller */
+  transition: all 0.3s ease;
+}
+
+.feature-icon {
+  font-size: 1.3rem; /* Slightly smaller */
+  min-width: 28px;
 }
 
 .enabled-feature {
-  color: var(--text-dark);
+  color: #e2e8f0;
+}
+
+.enabled-feature:hover {
+  color: #60a5fa;
+  padding-left: 0.5rem;
 }
 
 .disabled-feature {
-  color: #94a3b8;
+  color: #64748b;
   text-decoration: line-through;
 }
 
-/* ================= CTA BUTTONS ================= */
+.plan-cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem; /* Reduced */
+}
+
 .plan-cta {
-  width: 100%;
-  padding: 14px;
-  border-radius: 30px;
+  padding: 1.1rem 2rem; /* Slightly reduced */
+  border-radius: 50px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s ease;
   border: none;
-  cursor: pointer;
-  font-weight: 600;
-  background: var(--primary);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.primary-cta {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
   color: white;
-  transition: 0.3s;
 }
 
-.plan-cta:hover {
-  transform: scale(1.05);
+.primary-cta:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(59, 130, 246, 0.5);
 }
 
-.plan-cta-outline {
-  margin-top: 12px;
-  width: 100%;
-  padding: 14px;
-  border-radius: 30px;
-  border: 2px solid var(--primary);
+.secondary-cta {
   background: transparent;
-  color: var(--primary);
-  font-weight: 600;
-  cursor: pointer;
+  color: #60a5fa;
+  border: 2px solid #60a5fa;
 }
 
-/* ================= TRUST ================= */
+.secondary-cta:hover {
+  background: #60a5fa;
+  color: white;
+  box-shadow: 0 20px 50px rgba(96, 165, 250, 0.4);
+}
+
+/* ================= TRUST SECTION ================= */
 .plans-trust {
-  margin-top: 90px;
-  padding: 80px 10%;
-  background: white;
   text-align: center;
+  padding: 8rem 2rem;
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: 40px;
+  margin: 6rem 0;
+  border: 1px solid rgba(148, 163, 184, 0.1);
 }
 
 .plans-trust h2 {
-  font-size: 2.3rem;
-}
-
-.plans-trust p {
-  margin-top: 10px;
-  color: var(--text-muted);
+  font-size: 2.8rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .trust-grid {
-  margin-top: 40px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
 }
 
-.trust-grid div {
-  padding: 20px;
-  border-radius: 16px;
-  background: #f1f5f9;
-  font-weight: 500;
+.trust-item {
+  background: rgba(30, 41, 59, 0.5);
+  padding: 2rem;
+  border-radius: 24px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  transition: all 0.4s ease;
+}
+
+.trust-item:hover {
+  transform: translateY(-10px);
+  border-color: #60a5fa;
+  box-shadow: 0 20px 40px rgba(96, 165, 250, 0.2);
+}
+
+.trust-item span {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 1rem;
 }
 
 /* ================= FAQ ================= */
 .plans-faq {
-  padding: 80px 10%;
+  padding: 8rem 2rem;
+  text-align: center;
 }
 
 .plans-faq h2 {
-  text-align: center;
-  font-size: 2.3rem;
-  margin-bottom: 40px;
+  font-size: 2.8rem;
+  margin-bottom: 4rem;
+  color: #60a5fa;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .faq-item {
-  max-width: 700px;
-  margin: 0 auto 30px;
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(16px);
+  padding: 2.5rem;
+  border-radius: 28px;
+  text-align: left;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  transition: all 0.4s ease;
+}
+
+.faq-item:hover {
+  transform: translateY(-8px);
+  border-color: #60a5fa;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
 }
 
 .faq-item h4 {
-  margin-bottom: 6px;
-  color: var(--primary);
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #60a5fa;
 }
 
 .faq-item p {
-  color: var(--text-muted);
-  line-height: 1.6;
+  color: #cbd5e1;
+  line-height: 1.7;
 }
 
-/* ================= ENTERPRISE CTA ================= */
+/* ================= FINAL CTA ================= */
 .plans-cta-hr {
-  padding: 90px 10%;
   text-align: center;
-  background: linear-gradient(135deg, #2563eb, #38bdf8);
-  color: white;
+  padding: 10rem 2rem;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+  border-radius: 40px;
+  margin: 6rem 0;
+  position: relative;
+  overflow: hidden;
+  clip-path: polygon(0 10%, 100% 0%, 100% 90%, 0 100%);
+}
+
+.plans-cta-hr::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.1), transparent 70%);
+  pointer-events: none;
 }
 
 .plans-cta-hr h3 {
-  font-size: 2.4rem;
-}
-
-.plans-cta-hr p {
-  margin-top: 14px;
-  font-size: 1.1rem;
-}
-
-.plans-cta-actions {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.plans-cta-actions button {
-  padding: 14px 36px;
-  border-radius: 30px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  background: white;
-  color: var(--primary);
-}
-
-.plans-cta-actions button:last-child {
-  background: transparent;
-  border: 2px solid white;
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
   color: white;
 }
 
+.plans-cta-hr p {
+  font-size: 1.4rem;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  color: rgba(255,255,255,0.9);
+}
+
+.plans-cta-actions {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-large {
+  background: white;
+  color: #3b82f6;
+  padding: 1.4rem 3rem;
+  border-radius: 50px;
+  font-size: 1.3rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  transition: all 0.4s ease;
+}
+
+.cta-large:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 30px 70px rgba(0,0,0,0.4);
+}
+
+.cta-outline {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 1.4rem 3rem;
+  border-radius: 50px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.cta-outline:hover {
+  background: white;
+  color: #3b82f6;
+  transform: translateY(-8px);
+}
+
 /* ================= RESPONSIVE ================= */
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .plans-cards {
-    margin-top: 40px;
+    grid-template-columns: 1fr;
+    padding: 0;
   }
-
   .featured-plan {
-    transform: none;
-  }
-
-  .plans-cta-actions {
-    flex-direction: column;
+    transform: scale(1);
   }
 }
-@media (max-width: 600px) {
+
+@media (max-width: 768px) {
   .plans-hero h1 {
-    font-size: 2.2rem;
+    font-size: 3rem;
   }
-
-  .plans-hero {
-    padding: 80px 5% 50px;
+  .plan-price {
+    font-size: 3rem;
   }
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+  .plans-cta-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+}
 
-  .plans-cta-hr h3 {
-    font-size: 1.8rem;
+@media (max-width: 480px) {
+  .pricing-toggle {
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  .pricing-toggle button {
+    width: 100%;
   }
 }

@@ -8,7 +8,8 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Plans from "./pages/Plans";
-import Predict from "./pages/Predict"; // Import Predict page
+import Predict from "./pages/Predict";
+import Admin from "./pages/Admin"; // New Admin Dashboard Page
 
 import { auth } from "./firebase"; // Firebase auth
 
@@ -23,12 +24,17 @@ class ErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div>
-          <h2>Something went wrong.</h2>
-          <p>Error: {this.state.error.message}</p>
-          <button onClick={() => this.setState({ hasError: false, error: null })}>
-            Try again
-          </button>
+        <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold mb-4">Something went wrong.</h2>
+            <p className="text-red-400 mb-6">Error: {this.state.error?.message}</p>
+            <button
+              onClick={() => this.setState({ hasError: false, error: null })}
+              className="px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-full font-semibold transition"
+            >
+              Try Again
+            </button>
+          </div>
         </div>
       );
     }
@@ -38,21 +44,39 @@ class ErrorBoundary extends Component {
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setIsLoggedIn(!!user);
       if (user) {
+        setIsLoggedIn(true);
+        setCurrentUser({
+          email: user.email,
+          uid: user.uid,
+          name: user.displayName || user.email?.split("@")[0],
+          photo: user.photoURL,
+        });
+
+        // Store in localStorage
         localStorage.setItem("user", JSON.stringify({
           email: user.email,
           uid: user.uid,
           name: user.displayName || user.email?.split("@")[0],
           photo: user.photoURL,
         }));
+
+        // Simple admin check: replace with your actual admin logic (e.g., custom claim, Firestore role, or hardcoded emails)
+        const adminEmails = ["g.sivasatyasaibhagavan@gmail.com", "admin@heartcare.com"]; // Update with real admin emails
+        setIsAdmin(adminEmails.includes(user.email));
       } else {
+        setIsLoggedIn(false);
+        setIsAdmin(false);
+        setCurrentUser(null);
         localStorage.removeItem("user");
       }
     });
+
     return () => unsubscribe();
   }, []);
 
@@ -60,8 +84,9 @@ function App() {
     auth.signOut()
       .then(() => {
         setIsLoggedIn(false);
+        setIsAdmin(false);
         localStorage.removeItem("user");
-        window.location.href = "/login"; // Programmatic navigation
+        window.location.href = "/login";
       })
       .catch((error) => {
         console.error("Logout failed:", error);
@@ -75,21 +100,45 @@ function App() {
 
   return (
     <Router>
-      <Navbar handleLogout={handleLogout} isLoggedIn={isLoggedIn} />
+      <Navbar
+        handleLogout={handleLogout}
+        isLoggedIn={isLoggedIn}
+        isAdmin={isAdmin}
+        currentUser={currentUser}
+      />
       <ErrorBoundary>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/plans" element={<Plans />} />
+
+          {/* Public Login */}
           <Route
             path="/login"
-            element={isLoggedIn ? <Navigate to="/predict" /> : <Login handleLogin={handleLogin} />}
+            element={isLoggedIn ? <Navigate to="/predict" replace /> : <Login handleLogin={handleLogin} />}
           />
+
+          {/* Protected User Route */}
           <Route
             path="/predict"
-            element={isLoggedIn ? <Predict /> : <Navigate to="/login" />}
+            element={isLoggedIn ? <Predict /> : <Navigate to="/login" replace />}
           />
+
+          {/* Protected Admin Route - Only visible/accessible to admins */}
+          <Route
+            path="/admin"
+            element={
+              isLoggedIn && isAdmin ? (
+                <Admin />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
+
+          {/* Optional: Fallback for unknown routes */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </ErrorBoundary>
     </Router>

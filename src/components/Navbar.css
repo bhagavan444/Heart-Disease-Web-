@@ -1,182 +1,227 @@
-/* =========================
-   BASE
-========================= */
+/* Navbar.css - Cardiac-AI Theme (Futuristic Medical Dark Mode) */
+
 .navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.2);
   z-index: 1000;
-  background:white;
-  border-bottom: 1px solid #e5e7eb;
   display: flex;
+  height:64px;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 36px; /* more breathing room */
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  padding: 0 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* Dark mode */
-body.dark .navbar {
-  background: #020617;
-  border-color: #1e293b;
+/* Brand / Logo */
+.navbar-brand {
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
-/* =========================
-   LOGO
-========================= */
-.navbar-logo a {
-  font-size: 1.25rem; /* slightly bigger */
-  font-weight: 700;
-  color: #111827;
+.navbar-logo {
+  color: #8b5cf6;
   text-decoration: none;
-  letter-spacing: 0.3px;
+  background: linear-gradient(to right, #8b5cf6, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-body.dark .navbar-logo a {
-  color: #e5e7eb;
+.navbar-logo span {
+  color: #22c55e;
 }
 
-/* =========================
-   LINKS
-========================= */
+/* Links Container */
 .navbar-links {
   display: flex;
   align-items: center;
-  gap: 30px; /* increased spacing */
+  gap: 30px;
 }
 
 .navbar-links a {
-  font-size: 1rem; /* increased size */
-  font-weight: 500;
-  color: #374151;
+  color: #cbd5e1;
   text-decoration: none;
-  padding: 8px 4px;
-  position: relative;
-  transition: color 0.25s ease;
+  font-weight: 500;
+  font-size: 1.05rem;
+  transition: color 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 8px;
 }
 
-body.dark .navbar-links a {
-  color: #9ca3af;
-}
-
-/* Hover */
 .navbar-links a:hover {
-  color: #2563eb;
+  color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.1);
 }
 
-/* Active link */
-.navbar-links a.active {
-  color: #2563eb;
+.navbar-links .highlight {
+  background: linear-gradient(to right, #8b5cf6, #3b82f6);
+  color: white;
   font-weight: 600;
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
 }
 
-/* Active underline – subtle & clean */
-.navbar-links a.active::after {
-  content: "";
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: #2563eb;
-  border-radius: 2px;
+.navbar-links .admin-link {
+  background: linear-gradient(to right, #ef4444, #ec4899);
+  color: white;
 }
 
-/* =========================
-   ACTION BUTTON
-========================= */
-.navbar-btn {
-  margin-left: 10px;
-  padding: 10px 20px; /* more clickable */
-  border-radius: 10px;
-  border: 1px solid #2563eb;
-  background: #2563eb;
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 600;
+/* Profile Dropdown */
+.navbar-profile-wrapper {
+  position: relative;
+}
+
+.navbar-profile-btn {
+  background: none;
+  border: none;
   cursor: pointer;
-  transition: all 0.25s ease;
+  padding: 0;
 }
 
-.navbar-btn:hover {
-  background: #1e40af;
-  border-color: #1e40af;
+.profile-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #8b5cf6;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border: 2px solid #8b5cf6;
+  transition: all 0.3s;
 }
 
-/* Dark mode button */
-body.dark .navbar-btn {
-  background: #2563eb;
-  border-color: #2563eb;
+.profile-avatar:hover {
+  transform: scale(1.1);
 }
 
-/* =========================
-   HAMBURGER
-========================= */
-.navbar-hamburger {
+.profile-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: rgba(30, 41, 59, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 12px;
+  width: 240px;
+  padding: 12px 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  z-index: 100;
+}
+
+.profile-info {
+  padding: 12px 20px;
+  text-align: center;
+  border-bottom: 1px solid #334155;
+}
+
+.profile-info strong {
+  display: block;
+  color: #e2e8f0;
+}
+
+.profile-info span {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.profile-divider {
+  height: 1px;
+  background: #334155;
+  margin: 8px 0;
+}
+
+.profile-dropdown button {
+  width: 100%;
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  color: #cbd5e1;
+  text-align: left;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.profile-dropdown button:hover {
+  background: rgba(139, 92, 246, 0.15);
+  color: #8b5cf6;
+}
+
+.logout-btn {
+  color: #ef4444 !important;
+}
+
+.logout-btn:hover {
+  background: rgba(239, 68, 68, 0.15) !important;
+  color: #ef4444 !important;
+}
+
+/* Hamburger Menu */
+.navbar-toggle {
   display: none;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
   background: none;
   border: none;
   cursor: pointer;
 }
 
-.navbar-hamburger span {
-  width: 24px;
-  height: 2px;
-  background: #111827;
-  transition: all 0.3s ease;
+.navbar-toggle span {
+  width: 30px;
+  height: 3px;
+  background: #8b5cf6;
+  border-radius: 2px;
+  transition: all 0.3s;
 }
 
-body.dark .navbar-hamburger span {
-  background: #e5e7eb;
+.navbar-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.navbar-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+.navbar-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
 }
 
-/* =========================
-   MOBILE
-========================= */
-@media (max-width: 768px) {
-  .navbar {
-    padding: 14px 22px;
-  }
-
-  .navbar-hamburger {
-    display: flex;
-  }
-
+/* Responsive */
+@media (max-width: 992px) {
   .navbar-links {
-    position: absolute;
-    top: 68px;
+    position: fixed;
+    top: 80px;
+    left: 0;
     right: 0;
-    width: 100%;
-    background: #ffffff;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 18px;
-    padding: 24px 28px;
-    border-bottom: 1px solid #e5e7eb;
-    display: none;
+    background: rgba(15, 23, 42, 0.98);
+    padding: 20px;
+    height: calc(100vh - 80px);
+    transform: translateX(100%);
+    transition: transform 0.4s ease;
   }
 
-  body.dark .navbar-links {
-    background: #020617;
-    border-color: #1e293b;
+  .navbar-links.open {
+    transform: translateX(0);
   }
 
-  .navbar-links.active {
+  .navbar-toggle {
     display: flex;
   }
 
-  .navbar-links a {
-    font-size: 1.05rem;
-  }
-
-  .navbar-links a.active::after {
-    display: none;
-  }
-
-  .navbar-btn {
-    margin-top: 8px;
+  .navbar-profile-wrapper {
+    margin-left: auto;
   }
 }
-/* =========================
-   RESPONSIVE ADJUSTMENTS
+
+/* Login Avatar (when not logged in) */
+.login-avatar .profile-avatar {
+  background: #334155;
+  font-size: 1.4rem;
+}

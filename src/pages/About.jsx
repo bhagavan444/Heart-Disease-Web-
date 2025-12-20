@@ -1,256 +1,298 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./About.css";
+import { Helmet } from "react-helmet"; // For meta title & favicon
 
 const About = () => {
   const currentYear = new Date().getFullYear();
 
+  // Animation logic for counters and skill bars
+  useEffect(() => {
+    const counters = document.querySelectorAll('.stat-value[data-target]');
+    const skills = document.querySelectorAll('.skill-fill');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Counter animation for stats
+            if (entry.target.hasAttribute('data-target')) {
+              const target = parseInt(entry.target.getAttribute('data-target'));
+              const suffix = entry.target.textContent.includes('%') ? '%' : '+';
+              let count = 0;
+              const increment = target / 100; // Smooth increment
+              const timer = setInterval(() => {
+                count += increment;
+                if (count >= target) {
+                  entry.target.textContent = target + suffix;
+                  clearInterval(timer);
+                } else {
+                  entry.target.textContent = Math.floor(count) + suffix;
+                }
+              }, 20);
+            }
+
+            // Skill bar animation
+            if (entry.target.classList.contains('skill-fill')) {
+              const width = entry.target.getAttribute('data-width');
+              const delay = entry.target.getAttribute('data-delay') || 0;
+              setTimeout(() => {
+                entry.target.style.width = width;
+              }, delay);
+            }
+          }
+        });
+      },
+      { threshold: 0.3 } // Trigger when 30% of element is visible
+    );
+
+    // Observe all counters and skill bars
+    counters.forEach((counter) => observer.observe(counter));
+    skills.forEach((skill) => observer.observe(skill));
+
+    // Cleanup observer on unmount
+    return () => observer.disconnect();
+  }, []); // Empty dependency array → runs once on mount
+
   return (
-    <main className="abt-main" aria-labelledby="about-heading">
+    <>
+      {/* ================= META TITLE & FAVICON ================= */}
+      <Helmet>
+        <title>G S S S Bhagavan | AI & Healthcare Developer Portfolio</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Helmet>
 
-      {/* ================= HERO / PROFILE ================= */}
-      <section className="abt-hero" aria-labelledby="profile-heading">
-        <div className="abt-hero-inner">
+      <main className="abt-main" aria-labelledby="about-heading">
 
-          {/* Profile Card */}
-          <div className="abt-avatar-card">
-            <img
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-              alt="G S S S Bhagavan — AI & Data Science Developer"
-              className="abt-avatar"
-            />
+        {/* ================= HERO / PROFILE ================= */}
+        <section className="abt-hero" aria-labelledby="profile-heading">
+          <div className="abt-hero-inner">
 
-            <div className="abt-badges" aria-hidden="true">
-              <span className="badge">B.Tech — AI & Data Science</span>
-              <span className="badge">Lead Developer — HeartCare Predictor</span>
-            </div>
-          </div>
+            {/* ===== ENHANCED AI IDENTITY PANEL WITH FLOAT ANIMATION ===== */}
+            <div className="abt-avatar-card animate-float">
+              <div className="ai-identity-glow" />
+              <h3 className="ai-identity-title">AI Developer Identity</h3>
 
-          {/* Intro */}
-          <div className="abt-intro">
-            <h1 id="profile-heading" className="abt-name">
-              G S S S Bhagavan
-            </h1>
+              <ul className="ai-identity-list">
+                <li>🧠 Domain: Healthcare Artificial Intelligence</li>
+                <li>📊 Focus: Predictive Analytics & Risk Modeling</li>
+                <li>⚙️ Stack: ML + Full-Stack Engineering</li>
+                <li>🔍 Strength: Explainable & Ethical AI</li>
+                <li>🚀 Goal: Real-World Clinical Impact</li>
+              </ul>
 
-            <p className="abt-subtitle">
-              B.Tech (Artificial Intelligence & Data Science) ·
-              Full-Stack & Machine Learning Developer
-            </p>
-
-            <p className="abt-location">
-              <strong>Ramachandra College of Engineering</strong>
-              <span> · Eluru, Andhra Pradesh, India</span>
-            </p>
-
-            <blockquote className="abt-quote">
-              “Focused on building scalable, ethical AI systems that enable
-              early disease detection and better preventive healthcare.”
-            </blockquote>
-
-            {/* CTA */}
-            <div className="abt-cta-row">
-              <a href="/predict" className="abt-cta-btn">
-                Try HeartCare Predictor
-              </a>
-              <a
-                href="/assets/GSSS_Bhagavan_CV.pdf"
-                className="abt-cta-link"
-                download
-              >
-                Download Resume
-              </a>
-            </div>
-
-            {/* Socials */}
-            <nav className="abt-socials" aria-label="Social links">
-              <a
-                href="https://github.com/YourGitHub"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub
-              </a>
-              <a
-                href="https://www.linkedin.com/in/YourLinkedIn"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LinkedIn
-              </a>
-              <a href="mailto:gs@example.com">Email</a>
-            </nav>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= QUICK STATS ================= */}
-      <section className="abt-card abt-stats-card" aria-labelledby="stats-heading">
-        <h2 id="stats-heading" className="abt-section-title">
-          Project Impact — At a Glance
-        </h2>
-
-        <div className="abt-stats-grid">
-          <div className="stat">
-            <div className="stat-value">1.2K+</div>
-            <div className="stat-label">Prediction runs (demo)</div>
-          </div>
-          <div className="stat">
-            <div className="stat-value">95%</div>
-            <div className="stat-label">Model validation accuracy</div>
-          </div>
-          <div className="stat">
-            <div className="stat-value">4</div>
-            <div className="stat-label">Weeks from idea to MVP</div>
-          </div>
-          <div className="stat">
-            <div className="stat-value">3</div>
-            <div className="stat-label">Planned enterprise integrations</div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= SKILLS ================= */}
-      <section className="abt-card abt-skills-card" aria-labelledby="skills-heading">
-        <h2 id="skills-heading" className="abt-section-title">
-          Skills & Technology Stack
-        </h2>
-
-        <div className="abt-skills-grid">
-          {[
-            ["React.js", "85%"],
-            ["CSS / Tailwind", "80%"],
-            ["Python", "90%"],
-            ["TensorFlow / Keras", "78%"],
-            ["Scikit-learn", "82%"],
-            ["Flask & REST APIs", "88%"],
-          ].map(([skill, level]) => (
-            <div className="skill" key={skill}>
-              <div className="skill-title">{skill}</div>
-              <div className="skill-bar" role="progressbar">
-                <div className="skill-fill" style={{ width: level }} />
+              <div className="abt-badges">
+                <span className="badge">B.Tech — AI & Data Science</span>
+                <span className="badge">Lead Developer — HeartCare Predictor</span>
+                <span className="badge">Healthcare AI Research</span>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* ================= PROJECTS ================= */}
-      <section className="abt-card abt-project-card" aria-labelledby="projects-heading">
-        <h2 id="projects-heading" className="abt-section-title">
-          Featured Projects
-        </h2>
+            {/* ================= INTRO ================= */}
+            <div className="abt-intro">
+              <h1 id="profile-heading" className="abt-name">
+                G S S S Bhagavan
+              </h1>
 
-        <div className="project-list">
-          <article className="project">
-            <h3>HeartCare Predictor — Full-Stack AI System</h3>
+              <p className="abt-subtitle">
+                Artificial Intelligence & Data Science Engineer ·
+                Full-Stack & Machine Learning Developer
+              </p>
+
+              <p className="abt-location">
+                <strong>Ramachandra College of Engineering</strong>
+                <span> · Eluru, Andhra Pradesh, India</span>
+              </p>
+
+              <blockquote className="abt-quote">
+                “Designing responsible AI systems to support early disease
+                detection and preventive healthcare decisions.”
+              </blockquote>
+
+              <div className="abt-cta-row">
+                <a href="/predict" className="abt-cta-btn primary">
+                  Try HeartCare Predictor
+                </a>
+                <a href="/assets/GSSS_Bhagavan_CV.pdf" className="abt-cta-btn secondary" download>
+                  Download Resume
+                </a>
+              </div>
+
+              <nav className="abt-socials">
+                <a href="https://github.com/YourGitHub" target="_blank" rel="noreferrer" aria-label="GitHub">
+                  GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/YourLinkedIn" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                  LinkedIn
+                </a>
+                <a href="mailto:gs@example.com" aria-label="Email">
+                  Email
+                </a>
+              </nav>
+            </div>
+          </div>
+
+          {/* Subtle ECG wave background in hero */}
+          <div className="ecg-background">
+            <svg className="ecg-wave" viewBox="0 0 1000 200" preserveAspectRatio="none">
+              <path d="M0,100 L100,100 L120,100 L125,40 L130,160 L135,100 L200,100 L1000,100" />
+            </svg>
+            <svg className="ecg-wave ecg-wave-2" viewBox="0 0 1000 200" preserveAspectRatio="none">
+              <path d="M0,100 L100,100 L120,100 L125,40 L130,160 L135,100 L200,100 L1000,100" />
+            </svg>
+          </div>
+        </section>
+
+        {/* ================= PROJECT OVERVIEW ================= */}
+        <section className="abt-card">
+          <h2 className="abt-section-title">About HeartCare Predictor</h2>
+          <p>
+            HeartCare Predictor is an intelligent healthcare analytics platform
+            developed to estimate heart disease risk using machine learning.
+            It transforms clinical parameters into actionable insights through
+            an explainable, full-stack AI system.
+          </p>
+        </section>
+
+        {/* ================= QUICK STATS WITH COUNTER ANIMATION ================= */}
+        <section className="abt-card abt-stats-card">
+          <h2 className="abt-section-title">Project Impact — At a Glance</h2>
+          <div className="abt-stats-grid">
+            <div className="stat">
+              <div className="stat-value" data-target="1200">0+</div>
+              <div className="stat-label">Predictions Tested</div>
+            </div>
+            <div className="stat">
+              <div className="stat-value" data-target="95">0%</div>
+              <div className="stat-label">Validation Accuracy</div>
+            </div>
+            <div className="stat">
+              <div className="stat-value" data-target="12">0+</div>
+              <div className="stat-label">Clinical Parameters</div>
+            </div>
+            <div className="stat">
+              <div className="stat-value">End-to-End</div>
+              <div className="stat-label">ML + API + UI</div>
+            </div>
+          </div>
+        </section>
+
+        {/* ================= CORE FEATURES ================= */}
+        <section className="abt-card">
+          <h2 className="abt-section-title">Core System Features</h2>
+          <ul className="abt-feature-list">
+            <li>🧠 ML-based heart disease risk prediction engine</li>
+            <li>📊 Probability-based outputs instead of binary results</li>
+            <li>🔍 Explainable AI highlighting key risk factors</li>
+            <li>⚙️ Flask REST API with React frontend integration</li>
+            <li>🔐 Stateless prediction with privacy-first design</li>
+            <li>📈 Feature scaling, cross-validation & optimization</li>
+          </ul>
+        </section>
+
+        {/* ================= SKILLS WITH ANIMATED BARS ================= */}
+        <section className="abt-card abt-skills-card">
+          <h2 className="abt-section-title">Skills & Technology Stack</h2>
+          <div className="abt-skills-grid">
+            {[
+              ["React.js", "85%"],
+              ["HTML / CSS / Tailwind", "80%"],
+              ["Python", "90%"],
+              ["Scikit-learn", "85%"],
+              ["TensorFlow / Keras", "78%"],
+              ["Flask & REST APIs", "88%"],
+              ["Pandas & NumPy", "90%"],
+            ].map(([skill, level], index) => (
+              <div className="skill" key={skill}>
+                <div className="skill-header">
+                  <span className="skill-title">{skill}</span>
+                  <span className="skill-percent">{level}</span>
+                </div>
+                <div className="skill-bar">
+                  <div 
+                    className="skill-fill" 
+                    style={{ width: "0%" }}
+                    data-width={level}
+                    data-delay={index * 100}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ================= PROJECTS ================= */}
+        <section className="abt-card abt-project-card">
+          <h2 className="abt-section-title">Featured Projects</h2>
+
+          <article className="project highlight-project">
+            <h3>❤️ HeartCare Predictor</h3>
             <p>
-              End-to-end healthcare prediction system using a Flask-based ML
-              backend and React frontend. Includes live risk simulation,
-              explainable outputs, and clinician-ready reporting.
+              Full-stack AI healthcare system predicting heart disease risk
+              using structured medical data with explainable outputs.
             </p>
             <div className="project-links">
               <a href="/predict">Live Demo</a>
-              <a
-                href="https://github.com/YourGitHub/heartcare-predictor"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source Code
-              </a>
+              <a href="https://github.com/YourGitHub/heartcare-predictor" target="_blank" rel="noreferrer">Source Code</a>
             </div>
           </article>
 
           <article className="project">
-            <h3>Fruit & Vegetable Rotten Detection</h3>
+            <h3>🍎 Fruit & Vegetable Rotten Detection</h3>
             <p>
-              Transfer-learning solution using MobileNetV2 to classify fresh
-              vs rotten produce. Built during internship to demonstrate CNN
-              pipelines and deployment workflows.
+              CNN-based classification using MobileNetV2 and transfer learning
+              to detect fresh vs rotten produce.
             </p>
-            <div className="project-links">
-              <a
-                href="https://github.com/YourGitHub/fruit-detect"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source Code
-              </a>
-            </div>
           </article>
 
           <article className="project">
-            <h3>ATS-Optimized Resume Builder (MERN)</h3>
+            <h3>📄 ATS-Optimized Resume Builder (MERN)</h3>
             <p>
-              Full MERN stack application enabling resume creation, ATS scoring,
-              and dynamic PDF/Word downloads with OAuth authentication.
+              Resume creation platform with ATS scoring, OAuth login,
+              and PDF/Word download support.
             </p>
-            <div className="project-links">
-              <a href="/resume-builder">Try App</a>
-              <a
-                href="https://github.com/YourGitHub/resume-builder"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source Code
-              </a>
-            </div>
           </article>
-        </div>
-      </section>
+        </section>
 
-      {/* ================= ROADMAP ================= */}
-      <section className="abt-card abt-roadmap" aria-labelledby="roadmap-heading">
-        <h2 id="roadmap-heading" className="abt-section-title">
-          Roadmap & Vision
-        </h2>
+        {/* ================= ROADMAP ================= */}
+        <section className="abt-card abt-roadmap">
+          <h2 className="abt-section-title">Roadmap & Future Vision</h2>
+          <ol className="roadmap-list">
+            <li><strong>Q1 {currentYear + 1}:</strong> Larger datasets & feature engineering</li>
+            <li><strong>Q2 {currentYear + 1}:</strong> Wearable & EHR integration</li>
+            <li><strong>Q3 {currentYear + 1}:</strong> Bias analysis & privacy-preserving ML</li>
+            <li><strong>Q4 {currentYear + 1}:</strong> Hospital-scale deployment dashboard</li>
+          </ol>
+        </section>
 
-        <ol className="roadmap-list">
-          <li><strong>Q1:</strong> Dataset expansion & cross-validation</li>
-          <li><strong>Q2:</strong> Wearable & EHR integrations</li>
-          <li><strong>Q3:</strong> Privacy, compliance & audit readiness</li>
-          <li><strong>Q4:</strong> Enterprise-scale deployment & analytics</li>
-        </ol>
-      </section>
+        {/* ================= ETHICS ================= */}
+        <section className="abt-card abt-ethics">
+          <h2 className="abt-section-title">Ethics, Privacy & Disclaimer</h2>
+          <p>
+            This system is developed for educational and research purposes only.
+            Predictions are not a substitute for professional medical diagnosis.
+            Future versions will comply with HIPAA & GDPR standards.
+          </p>
+        </section>
 
-      {/* ================= ETHICS ================= */}
-      <section className="abt-card abt-ethics" aria-labelledby="ethics-heading">
-        <h2 id="ethics-heading" className="abt-section-title">
-          Ethics, Privacy & Safety
-        </h2>
-        <p>
-          This system is designed for educational and research purposes.
-          Predictions are illustrative and not a replacement for professional
-          medical diagnosis. Future deployments will follow strict privacy,
-          encryption and regulatory compliance standards (HIPAA/GDPR).
-        </p>
-      </section>
+        {/* ================= CONTACT ================= */}
+        <section className="abt-card abt-contact-card">
+          <h2 className="abt-section-title">Contact & Collaboration</h2>
+          <p>
+            Open to AI/ML internships, healthcare research collaborations,
+            and software engineering roles.
+          </p>
+          <div className="contact-actions">
+            <a className="homepage-btn primary" href="mailto:gs@example.com">Email Me</a>
+            <a className="homepage-btn secondary" href="/contact">Request Demo</a>
+          </div>
+        </section>
 
-      {/* ================= CONTACT ================= */}
-      <section className="abt-card abt-contact-card" aria-labelledby="contact-heading">
-        <h2 id="contact-heading" className="abt-section-title">
-          Contact & Collaboration
-        </h2>
+        <footer className="abt-footer-note">
+          © {currentYear} G S S S Bhagavan · Advancing Healthcare with Responsible AI
+        </footer>
 
-        <p>
-          Open to internships, research collaboration, healthcare pilots and
-          software engineering roles.
-        </p>
-
-        <div className="contact-actions">
-          <a className="homepage-btn" href="mailto:gs@example.com">
-            Email Me
-          </a>
-          <a className="homepage-btn-outline" href="/contact">
-            Request Demo
-          </a>
-        </div>
-      </section>
-
-      {/* ================= FOOTER NOTE ================= */}
-      <footer className="abt-footer-note">
-        © {currentYear} G S S S Bhagavan · Built with ❤️ for healthcare innovation
-      </footer>
-
-    </main>
+      </main>
+    </>
   );
 };
 

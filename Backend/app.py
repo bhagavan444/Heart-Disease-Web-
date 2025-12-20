@@ -1,51 +1,102 @@
+# app.py
+
 from flask import Flask, request, jsonify
-from flask_cors import CORS  # Import CORS
+from flask_cors import CORS
 import joblib
 import numpy as np
+import logging
+from datetime import datetime
 
-# Initialize Flask app
+# -------------------- APP CONFIG --------------------
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)  # Allows frontend (React) to connect
 
-# Load trained model and scaler
-model = joblib.load("heart_disease_model.pkl")
-scaler = joblib.load("scaler.pkl")
+# Logging (saves to prediction_logs.log)
+logging.basicConfig(
+    filename="prediction_logs.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
-# Define prediction route
-@app.route("/predict", methods=["POST"])
+# -------------------- LOAD MODEL --------------------
+try:
+    model = joblib.load("heart_disease_model.pkl")
+    scaler = joblib.load("scaler.pkl")
+    print("Model and scaler loaded successfully.")
+except Exception as e:
+    print(f"Error loading model or scaler: {e}")
+    raise
+
+# Required features exactly as your model was trained
+FEATURES = [
+    "age", "sex", "cp", "trestbps", "chol", "fbs",
+    "restecg", "thalach", "exang", "oldpeak",
+    "slope", "ca", "thal"
+]
+
+# -------------------- HEALTH CHECK --------------------
+@app.route("/health", methods=["GET"])
+def health_check():
+    return jsonify({
+        "status": "UP",
+        "model_loaded": True,
+        "timestamp": datetime.utcnow().isoformat()
+    }), 200
+
+# -------------------- PREDICTION ENDPOINT --------------------
+@app.route("/api/v1/predict", methods=["POST"])
 def predict():
     try:
-        # Get JSON data from request
         data = request.get_json()
 
-        # Features in the same order as training
-        features = [
-            "age", "sex", "cp", "trestbps", "chol", "fbs",
-            "restecg", "thalach", "exang", "oldpeak", "slope",
-            "ca", "thal"
-        ]
-        
-        # Extract feature values in order
-        input_data = [data[feature] for feature in features]
+        # Validation: Check if JSON body exists
+        if not data:
+            return jsonify({"error": "No input data provided"}), 400
+
+        # Check for missing required features
+        missing = [f for f in FEATURES if f not in data]
+        if missing:
+            return jsonify({
+                "error": "Missing required features",
+                "missing_features": missing
+            }), 400
+
+        # Prepare input in correct order
+        input_data = [float(data[f]) for f in FEATURES]
         input_array = np.array(input_data).reshape(1, -1)
-        
-        # Scale the data
         input_scaled = scaler.transform(input_array)
-        
+
         # Make prediction
-        prediction = model.predict(input_scaled)[0]
-        probability = model.predict_proba(input_scaled)[0][prediction]
+        prediction = int(model.predict(input_scaled)[0])
+        probability = float(model.predict_proba(input_scaled)[0][prediction])
 
-        result = {
-            "prediction": int(prediction),       # 0 = No Heart Disease, 1 = Heart Disease
-            "probability": float(probability)
-        }
+        # Basic explainability: return raw input values
+        feature_impact = dict(zip(FEATURES, input_data))
 
-        return jsonify(result)
+        # Log the prediction
+        logging.info({
+            "input": feature_impact,
+            "prediction": prediction,
+            "probability": probability
+        })
+
+        # Response to frontend
+        return jsonify({
+            "prediction": prediction,  # 0 = No Disease, 1 = Disease
+            "risk_label": "High Risk" if prediction == 1 else "Low Risk",
+            "confidence": round(probability * 100, 2),
+            "features_used": feature_impact,
+            "timestamp": datetime.utcnow().isoformat()
+        }), 200
 
     except Exception as e:
-        return jsonify({"error": str(e)})
+        logging.error(f"Prediction error: {str(e)}")
+        return jsonify({
+            "error": "Internal Server Error",
+            "details": str(e)
+        }), 500
 
-# Run app
+# -------------------- RUN SERVER --------------------
 if __name__ == "__main__":
-    app.run(debug=True)
+    print("Starting Heart Disease Prediction API on http://127.0.0.1:5000")
+    app.run(host="0.0.0.0", port=5000, debug=True)
